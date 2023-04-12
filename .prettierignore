@@ -1,2 +1,5 @@
 build
 env.ts
+routes.ts
+app
+*.ts
