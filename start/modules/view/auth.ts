@@ -1,7 +1,5 @@
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/login', async ({ view }) => {
-    //return response.badRequest({data: 'Inicia sesión plis'});
-    // Esta ruta debe redirigir al login (la vista)
-    return view.render('pages/page_login')
-  })
+Route.get('/login', async ({ view, auth, response }) => {
+    return !auth.use('web').isLoggedIn ? view.render('pages/page_login') : response.redirect('/welcome') 
+  }).middleware(['silenthAuth'])

@@ -1,0 +1,13 @@
+@layout('layouts/main-login')
+@set('title', 'Escanear QR' )
+
+@section('body')
+
+<section class="section">
+    <div class="container">
+        <p> Escanea este QR en tu app</p>
+        <img src="{{ qrCode }}" alt="QR code" width="600px" height="600px">
+    </div>
+</section>
+
+@end

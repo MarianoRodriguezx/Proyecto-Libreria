@@ -21,6 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 import './modules/api/auth'
 import './modules/api/mail'
+import './modules/api/qr'
 import './modules/view/auth'
 
 
@@ -29,7 +30,7 @@ import './modules/view/auth'
   return view.render('pages/page_login')
 }) */
 
-Route.get('/welcome', async ({ view }) => {
+Route.get('/welcome', async ({ view, auth }) => {
   return view.render('welcome')  
 }).middleware(['auth'])
 
