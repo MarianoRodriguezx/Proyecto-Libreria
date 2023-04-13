@@ -19,8 +19,17 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import './modules/api/auth'
+import './modules/view/auth'
+
 
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
   //return view.render('pages/page_login')
+})
+
+// TEST
+
+Route.get('/test', async ({ response }) => {
+  return response.ok({data: 'funciona'});
 })
