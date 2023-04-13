@@ -6,16 +6,12 @@
 <section class="section">
     <div class="container">
         {{--  Aquí se inserta el código que se mandó al correo --}}
+        {{--  Ya se manda correos, pero temporalmente solo se muestra el código en consola --}}
         <p> Se ha mandado un código de verificación a tu correo. Por favor ingresa el código</p>
         <form action="{{ route('submitCode') }}" method="POST" class="form login">
-            <input type="text">
+            <input type="text" id="code" name="code">
             <input type="submit" value="Verificar">
         </form>
-        {{--  
-            Mandar código en un objeto que tenga como valor "code" 
-            a la ruta "/submit/verification-code"
-            Método POST
-        --}}
 
         {{--  Mensajes de error  --}}
         @if(hasError)

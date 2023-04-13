@@ -83,10 +83,10 @@ export default class AuthController {
     }
 
     public async logout({ auth, response }: HttpContextContract){
-        await auth.use('web').logout()
         const user = await User.findByOrFail('email', auth.user!.email)
         user.verified = false;
         await user.save()
+        await auth.use('web').logout()
         return response.redirect('/login')
     }
 
