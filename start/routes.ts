@@ -31,7 +31,7 @@ import './modules/view/auth'
 
 Route.get('/welcome', async ({ view }) => {
   return view.render('welcome')  
-})
+}).middleware(['auth'])
 
 Route.on('/').redirect('/login')
 

@@ -82,11 +82,8 @@ export default class AuthController {
 
     public async logout({ auth, response }: HttpContextContract){
         await auth.use('web').logout()
-        return response.ok({
-            status: true,
-            message: 'Sesión cerrada correctamente',
-            data: {}
-        })
+        return response.redirect('/login')
+        
     }
 
     public async profile({ auth, response }: HttpContextContract){
