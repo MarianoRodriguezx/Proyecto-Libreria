@@ -20,6 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import './modules/api/auth'
+import './modules/api/mail'
 import './modules/view/auth'
 
 

@@ -1,0 +1,27 @@
+@layout('layouts/main-login')
+@set('title', 'Código de verificación' )
+
+@section('body')
+
+<section class="section">
+    <div class="container">
+        {{--  Aquí se inserta el código que se mandó al correo --}}
+        <p> Se ha mandado un código de verificación a tu correo. Por favor ingresa el código</p>
+        <form action="{{ route('submitCode') }}" method="POST" class="form login">
+            <input type="text">
+            <input type="submit" value="Verificar">
+        </form>
+        {{--  
+            Mandar código en un objeto que tenga como valor "code" 
+            a la ruta "/submit/verification-code"
+            Método POST
+        --}}
+
+        {{--  Mensajes de error  --}}
+        @if(hasError)
+            <p style="color: red;">{{msg}}</p>
+        @endif
+    </div>
+</section>
+
+@end

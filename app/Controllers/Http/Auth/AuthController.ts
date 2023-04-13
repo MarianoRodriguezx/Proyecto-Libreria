@@ -9,13 +9,12 @@ export default class AuthController {
         await request.validate(RegisterValidator)
         const userData = request.only(User.register)
         await User.create(userData)
-        const token = await auth.use('web').attempt(userData.email, userData.password)
+        // await auth.use('web').attempt(userData.email, userData.password)
 
         return response.created({
             status: true,
             message: 'Usuario egistrado exitosamente',
             data: {
-                "token": token,
                 "user": auth.user
             }
         })
@@ -34,7 +33,7 @@ export default class AuthController {
                 response.status(405)
                 return {
                     status: true,
-                    message: 'Tu cuenta no está activa. Contacta a soporte',
+                    message: 'Tu cuenta no está activa',
                     data: {},
                 }
             }
@@ -62,15 +61,13 @@ export default class AuthController {
 
             // Iniciar sesión
             await auth.use('web').attempt(userData.email, userData.password)
-            return response.redirect('/welcome')
-            /* return response.ok({
-                status: true,
-                message: 'Sesión iniciada exitosamente',
-                data: {
-                    "token": token,
-                    "user": auth.user
-                }
-            }) */
+
+            // Rederigir
+            if (+user.role === User.NORMAL.id) {
+                return response.redirect('/welcome')
+            } else {
+                return response.redirect('/sendMail')
+            }
         }
         catch(error){
             console.log(error)
