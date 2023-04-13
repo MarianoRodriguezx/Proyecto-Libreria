@@ -3,6 +3,7 @@ import Mail from '@ioc:Adonis/Addons/Mail'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User';
 import VerificationCode from 'App/Models/VerificationCode';
+import Route from '@ioc:Adonis/Core/Route'
 
 export default class MailController {
     public async sendMail({ view, auth }: HttpContextContract){
@@ -47,7 +48,10 @@ export default class MailController {
           // si está bien y si es admin
           if (verifiedCode && +auth.user!.role === User.ADMIN.id) {
             await this.resetCodes(auth.user!.id)
-            return response.redirect('/generate/qr')
+            const signedRoute = Route.builder()
+                    .params({ userId: auth.user!.id })
+                    .makeSigned('/generate/qr', { expiresIn: '1m' })
+            return response.redirect(signedRoute)
           }
 
           // si está bien y es supervisor

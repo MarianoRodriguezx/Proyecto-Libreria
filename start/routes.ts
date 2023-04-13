@@ -32,9 +32,13 @@ import './modules/view/auth'
 
 Route.get('/welcome', async ({ view }) => {
   return view.render('welcome')  
-}).middleware(['auth'])
+}).middleware(['auth', 'verifyUser'])
 
 Route.on('/').redirect('/login')
+
+Route.get('/not-found', async ({ view }) => {
+  return view.render('errors/not-found')  
+})
 
 // TEST
 

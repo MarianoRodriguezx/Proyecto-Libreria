@@ -50,11 +50,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     }
 
     if (error.code === 'E_ROUTE_NOT_FOUND') {
-      return ctx.response.status(404).send({
-        status: false,
-        message: 'Ruta no encontrada',
-        data: error
-      })
+      return ctx.response.redirect('/not-found') 
     }
 
     /**

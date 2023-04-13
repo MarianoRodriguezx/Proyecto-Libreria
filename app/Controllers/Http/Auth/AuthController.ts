@@ -3,6 +3,7 @@ import User from 'App/Models/User'
 import LoginValidator from 'App/Validators/Auth/LoginValidator'
 import RegisterValidator from 'App/Validators/Auth/RegisterValidator'
 import Env from '@ioc:Adonis/Core/Env'
+import Route from '@ioc:Adonis/Core/Route'
 
 export default class AuthController {
     public async register({ request, response, auth }: HttpContextContract){
@@ -68,7 +69,10 @@ export default class AuthController {
                 await user.save()
                 return response.redirect('/welcome')
             } else {
-                return response.redirect('/sendMail')
+                const signedRoute = Route.builder()
+                    .params({ userId: auth.user!.id })
+                    .makeSigned('/sendMail', { expiresIn: '1m' })
+                return response.redirect(signedRoute)
             }
         }
         catch(error){
