@@ -9,7 +9,7 @@ export default class AuthController {
         await request.validate(RegisterValidator)
         const userData = request.only(User.register)
         await User.create(userData)
-        const token = await auth.use('api').attempt(userData.email, userData.password,{})
+        const token = await auth.use('web').attempt(userData.email, userData.password)
 
         return response.created({
             status: true,
@@ -26,7 +26,10 @@ export default class AuthController {
         const userData = request.only(User.login)
         const isPrivate = Env.get('IS_PRIVATE')
         try{
+
             const user = await User.findByOrFail('email', userData.email)
+
+            // Validar status
             if (!user.status) {
                 response.status(405)
                 return {
@@ -57,7 +60,8 @@ export default class AuthController {
                 }
             }
 
-            await auth.use('api').attempt(userData.email, userData.password,{})
+            // Iniciar sesión
+            await auth.use('web').attempt(userData.email, userData.password)
             return response.redirect('/welcome')
             /* return response.ok({
                 status: true,
@@ -80,7 +84,7 @@ export default class AuthController {
     }
 
     public async logout({ auth, response }: HttpContextContract){
-        await auth.use('api').revoke()
+        await auth.use('web').logout()
         return response.ok({
             status: true,
             message: 'Sesión cerrada correctamente',
