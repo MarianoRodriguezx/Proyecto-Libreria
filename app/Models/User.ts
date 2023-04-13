@@ -89,4 +89,18 @@ export default class User extends BaseModel {
     ]
   }
 
+  static get privateAccess () {
+    return [
+      this.ADMIN.id, 
+      this.SUPERVISOR.id
+    ]
+  }
+
+  static get publicAccess () {
+    return [
+      this.NORMAL.id, 
+      this.SUPERVISOR.id
+    ]
+  }
+
 }

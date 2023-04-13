@@ -28,4 +28,5 @@ export default Env.rules({
   PG_DB_NAME: Env.schema.string(),
   PG_HOST: Env.schema.string(),
   PG_PORT: Env.schema.number(),
+  IS_PRIVATE: Env.schema.boolean(),
 })

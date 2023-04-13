@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import LoginValidator from 'App/Validators/Auth/LoginValidator'
 import RegisterValidator from 'App/Validators/Auth/RegisterValidator'
-// import Env from '@ioc:Adonis/Core/Env'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class AuthController {
     public async register({ request, response, auth }: HttpContextContract){
@@ -24,6 +24,7 @@ export default class AuthController {
     public async login({ request, response, auth }: HttpContextContract){
         await request.validate(LoginValidator)
         const userData = request.only(User.login)
+        const isPrivate = Env.get('IS_PRIVATE')
         try{
             const user = await User.findByOrFail('email', userData.email)
             if (!user.status) {
@@ -32,11 +33,31 @@ export default class AuthController {
                     status: true,
                     message: 'Tu cuenta no está activa. Contacta a soporte',
                     data: {},
-                    isExternalApi: false
                 }
             }
 
-            const token = await auth.use('api').attempt(userData.email, userData.password,{})
+            // Validaciones de rol
+            if (isPrivate) {
+                if (!User.privateAccess.includes(user.role)) {
+                    response.status(405)
+                    return {
+                        status: true,
+                        message: 'Este rol no tiene acceso permitido',
+                        data: {}
+                    }
+                }
+            } else {
+                if (!User.publicAccess.includes(user.role)) {
+                    response.status(405)
+                    return {
+                        status: true,
+                        message: 'Este rol no tiene acceso permitido',
+                        data: {}
+                    }
+                }
+            }
+
+            await auth.use('api').attempt(userData.email, userData.password,{})
             return response.redirect('/welcome')
             /* return response.ok({
                 status: true,
@@ -44,8 +65,7 @@ export default class AuthController {
                 data: {
                     "token": token,
                     "user": auth.user
-                },
-                isExternalApi: false
+                }
             }) */
         }
         catch(error){
@@ -55,7 +75,6 @@ export default class AuthController {
                 status: false,
                 message: 'Correo o contraseña inválidos',
                 data: {},
-                isExternalApi: false
             }) */
         }
     }
@@ -65,8 +84,7 @@ export default class AuthController {
         return response.ok({
             status: true,
             message: 'Sesión cerrada correctamente',
-            data: {},
-            isExternalApi: false
+            data: {}
         })
     }
 
@@ -74,8 +92,7 @@ export default class AuthController {
         return response.ok({
             status: true,
             message: 'Perfil encontrado correctamente',
-            data: auth.user,
-            isExternalApi: false
+            data: auth.user
         })
     }
 }
