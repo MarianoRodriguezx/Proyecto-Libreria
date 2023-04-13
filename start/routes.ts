@@ -30,7 +30,7 @@ import './modules/view/auth'
   return view.render('pages/page_login')
 }) */
 
-Route.get('/welcome', async ({ view, auth }) => {
+Route.get('/welcome', async ({ view }) => {
   return view.render('welcome')  
 }).middleware(['auth'])
 

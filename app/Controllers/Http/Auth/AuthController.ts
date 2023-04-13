@@ -64,6 +64,8 @@ export default class AuthController {
 
             // Rederigir
             if (+user.role === User.NORMAL.id) {
+                user.verified = true;
+                await user.save()
                 return response.redirect('/welcome')
             } else {
                 return response.redirect('/sendMail')
@@ -82,8 +84,10 @@ export default class AuthController {
 
     public async logout({ auth, response }: HttpContextContract){
         await auth.use('web').logout()
+        const user = await User.findByOrFail('email', auth.user!.email)
+        user.verified = false;
+        await user.save()
         return response.redirect('/login')
-        
     }
 
     public async profile({ auth, response }: HttpContextContract){
