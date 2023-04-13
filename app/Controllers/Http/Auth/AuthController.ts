@@ -37,7 +37,8 @@ export default class AuthController {
             }
 
             const token = await auth.use('api').attempt(userData.email, userData.password,{})
-            return response.ok({
+            return response.redirect('/welcome')
+            /* return response.ok({
                 status: true,
                 message: 'Sesión iniciada exitosamente',
                 data: {
@@ -45,16 +46,17 @@ export default class AuthController {
                     "user": auth.user
                 },
                 isExternalApi: false
-            })
+            }) */
         }
         catch(error){
             console.log(error)
-            return response.unauthorized({
+            return response.redirect('/login')
+            /* return response.unauthorized({
                 status: false,
                 message: 'Correo o contraseña inválidos',
                 data: {},
                 isExternalApi: false
-            })
+            }) */
         }
     }
 

@@ -7,6 +7,14 @@
       "js": [
         "http://localhost:8080/assets/app.js"
       ]
+    },
+    "styles-login": {
+      "css": [
+        "http://localhost:8080/assets/styles-login.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/styles-login.js"
+      ]
     }
   }
 }

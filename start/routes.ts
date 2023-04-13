@@ -23,10 +23,16 @@ import './modules/api/auth'
 import './modules/view/auth'
 
 
-Route.get('/', async ({ view }) => {
+/* Route.get('/', async ({ view }) => {
   return view.render('welcome')
-  //return view.render('pages/page_login')
+  return view.render('pages/page_login')
+}) */
+
+Route.get('/welcome', async ({ view }) => {
+  return view.render('welcome')  
 })
+
+Route.on('/').redirect('/login')
 
 // TEST
 
