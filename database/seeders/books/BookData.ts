@@ -10,7 +10,8 @@ export interface IEditorial {
     editorial_id: number;
 }
 export const books: IEditorial[] = [
-    /* {   
+    /* {
+        // ID 1   
         name: ".",
         description: ".",
         book_path: ".",
