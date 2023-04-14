@@ -11,12 +11,12 @@ export default class MailController {
         const max = 999999;
         const generatedCode = Math.floor(Math.random() * (max - min + 1) + min);
         console.log("Código de verificación:", generatedCode)
-        await Mail.send((message) => {
+        /* await Mail.send((message) => {
             message
               .to(auth.user!.email)
               .subject('Código de verificación')
               .htmlView('emails/verificationCode', { code: generatedCode })
-          })
+          }) */
 
 
           // Guardar código
@@ -35,10 +35,6 @@ export default class MailController {
     }
 
     public async submitCode({ view, response, auth, request }: HttpContextContract) {
-          const data = {
-            msg: "Código inválido. Intentos restantes 9999",
-            hasError: true
-          }
           // Verificar código
           const verificationCode = await VerificationCode.findByOrFail('user_id', auth.user!.id)
           let submitedCode = request.input('code')
@@ -64,6 +60,16 @@ export default class MailController {
           }
 
           // Si está mal
+          verificationCode.strikes += 1;
+          await verificationCode.save()
+          if (+verificationCode.strikes === 3) {
+            await this.resetCodes(auth.user!.id)
+            return response.redirect('login')
+          }
+          const data = {
+            msg: `Código inválido. Intentos restantes: ${3 - verificationCode.strikes}`,
+            hasError: true
+          }
           return view.render('pages/submit_code', data)  
     }
 
