@@ -6,7 +6,7 @@ import VerificationCode from 'App/Models/VerificationCode';
 import Route from '@ioc:Adonis/Core/Route'
 
 export default class MailController {
-    public async sendMail({ view, auth }: HttpContextContract){
+    public async sendMail({ view, auth }: HttpContextContract) {
         const min = 111111;
         const max = 999999;
         const generatedCode = Math.floor(Math.random() * (max - min + 1) + min);

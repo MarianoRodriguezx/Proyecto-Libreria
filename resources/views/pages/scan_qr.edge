@@ -8,6 +8,17 @@
         <p> Escanea este QR en tu app</p>
         <img src="{{ qrCode }}" alt="QR code" width="600px" height="600px">
     </div>
+
+    <form id="myForm" action="{{ route('submitQR') }}" method="POST"> </form>
 </section>
+
+<script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        const channel = `verificate-{{email}}`
+      const socket = io()
+      socket.on(channel, (data) => {
+        document.getElementById("myForm").submit();
+      })
+    </script>
 
 @end
