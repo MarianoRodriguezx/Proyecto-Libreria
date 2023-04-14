@@ -20,11 +20,8 @@ export default class CategoriesController {
   }
 
   public async create({auth, view}: HttpContextContract) {
-    const categories = await Category.query()
-    .orderBy('id', 'asc')
 
     const data = {
-      list: categories,
       isPrivate: isPrivate,
       role: auth.user?.role
     }
@@ -32,12 +29,11 @@ export default class CategoriesController {
     return view.render('pages/catalogs/categories/create', data)
   }
 
-  public async show({auth, view}: HttpContextContract) {
-    const categories = await Category.query()
-    .orderBy('id', 'asc')
+  public async show({auth, view, params}: HttpContextContract) {
+    const category = await Category.findOrFail(params.id)
 
     const data = {
-      list: categories,
+      item: category,
       isPrivate: isPrivate,
       role: auth.user?.role
     }
@@ -45,12 +41,11 @@ export default class CategoriesController {
     return view.render('pages/catalogs/categories/show', data)
   }
 
-  public async edit({auth, view}: HttpContextContract) {
-    const categories = await Category.query()
-    .orderBy('id', 'asc')
+  public async edit({auth, view, params}: HttpContextContract) {
+    const category = await Category.findOrFail(params.id)
 
     const data = {
-      list: categories,
+      item: category,
       isPrivate: isPrivate,
       role: auth.user?.role
     }
