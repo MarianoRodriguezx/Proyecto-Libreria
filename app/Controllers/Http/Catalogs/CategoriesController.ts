@@ -16,10 +16,51 @@ export default class CategoriesController {
       role: auth.user?.role
     }
     
-    return view.render('pages/catalogs/categories', data)
+    return view.render('pages/catalogs/categories/index', data)
   }
 
-  public async getActiveCategories({ auth, view }: HttpContextContract) {
+  public async create({auth, view}: HttpContextContract) {
+    const categories = await Category.query()
+    .orderBy('id', 'asc')
+
+    const data = {
+      list: categories,
+      isPrivate: isPrivate,
+      role: auth.user?.role
+    }
+    
+    return view.render('pages/catalogs/categories/create', data)
+  }
+
+  public async show({auth, view}: HttpContextContract) {
+    const categories = await Category.query()
+    .orderBy('id', 'asc')
+
+    const data = {
+      list: categories,
+      isPrivate: isPrivate,
+      role: auth.user?.role
+    }
+    
+    return view.render('pages/catalogs/categories/show', data)
+  }
+
+  public async edit({auth, view}: HttpContextContract) {
+    const categories = await Category.query()
+    .orderBy('id', 'asc')
+
+    const data = {
+      list: categories,
+      isPrivate: isPrivate,
+      role: auth.user?.role
+    }
+    
+    return view.render('pages/catalogs/categories/edit', data)
+  }
+
+  // API
+
+  public async getActiveCategories({ auth }: HttpContextContract) {
     const categories = await Category.query()
     .where('status', true)
     .orderBy('id', 'asc')
@@ -30,22 +71,8 @@ export default class CategoriesController {
       role: auth.user?.role
     }
     
-    return view.render('pages/catalogs/categories', data)
+    return data
   }
-
-  public async create({}: HttpContextContract) {
-    return "Crear categoría"
-  }
-
-  public async show({}: HttpContextContract) {
-    return "Ver categoría"
-  }
-
-  public async edit({}: HttpContextContract) {
-    return "Editar categoría"
-  }
-
-  // API
 
   public async store({}: HttpContextContract) {}
 
