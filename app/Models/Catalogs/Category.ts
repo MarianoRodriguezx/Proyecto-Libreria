@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
@@ -8,6 +10,7 @@ export default class Category extends BaseModel {
   @column()
   public name: string
 
+
   @column()
   public status: boolean
 
@@ -16,4 +19,15 @@ export default class Category extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  static get store () {
+    return [
+      'name'
+    ]
+  }
+
+  static get update () {
+    return this.store
+  }
+
 }
