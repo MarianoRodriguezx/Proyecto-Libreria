@@ -19,11 +19,16 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+// Auth
 import './modules/api/auth'
+// Helpers
 import './modules/api/mail'
 import './modules/api/qr'
 import './modules/api/file'
+// Views
 import './modules/view/auth'
+// Catalogs
+import './modules/view/catalogs/category'
 
 
 /* Route.get('/', async ({ view }) => {

@@ -1,0 +1,13 @@
+@layout('layouts/main')
+@set('title', 'Inicio | Libreria')
+
+@section('body')
+
+<div style="color:white">
+    <h1>Index de categories</h1>
+    <p>{{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
+    <p>{{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
+    <p>{{list}}</p> {{--  Lista de categorías  --}}
+</div>
+
+@end
