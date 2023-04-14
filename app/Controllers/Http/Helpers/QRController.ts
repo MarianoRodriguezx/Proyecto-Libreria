@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 var QRCode = require('qrcode')
-// import Ws from 'App/Services/Ws'
+import Ws from 'App/Services/Ws'
 
 
 export default class MailController {
@@ -25,7 +25,7 @@ export default class MailController {
     public async forceQr({ request }: HttpContextContract) {
         const email = request.input('email')
         console.log(email)
-        return "Obsoleto"
-        //Ws.io.emit(`verificate-${email}`, { my: 'data' })
+        //return "Obsoleto"
+        Ws.io.emit(`verificate-${email}`, { my: 'data' })
     }
 }
