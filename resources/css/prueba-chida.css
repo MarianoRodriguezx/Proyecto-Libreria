@@ -1,0 +1,36 @@
+.div-code{
+    max-width: 700px; 
+    margin-top: 2%;
+}
+
+.button-code {
+    background-color: #ea4c88;
+    color: #eee;
+    margin: 0;
+    width: 100%;
+    margin-top: 1%;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
+
+.button-code:hover {
+    background-color: #d44179;
+    color: #eee;
+}
+
+.p-code {
+    font-size: 18px;
+    color: #858b91;
+}
+
+.input-code {
+    border-radius: 0.25rem;
+    color:black;
+    padding: 0.5rem;
+}
+
+.p-errorI {
+    text-align: center;
+}
