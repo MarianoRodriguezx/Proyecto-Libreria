@@ -47,6 +47,7 @@ Encore.setPublicPath('/assets')
 */
 Encore.addEntry('app', './resources/js/app.js')
 Encore.addEntry('styles-login', './resources/js/styles-login.js')
+Encore.addEntry('dashboard-styles', './resources/js/dashboard-styles.js')
 
 /*
 |--------------------------------------------------------------------------
