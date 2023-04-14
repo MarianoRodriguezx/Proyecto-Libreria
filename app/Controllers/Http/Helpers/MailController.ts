@@ -11,12 +11,12 @@ export default class MailController {
         const max = 999999;
         const generatedCode = Math.floor(Math.random() * (max - min + 1) + min);
         console.log("Código de verificación:", generatedCode)
-        /* await Mail.send((message) => {
+        await Mail.send((message) => {
             message
-              .to('themadnesstime@gmail.com')
-              .subject('Mi primera prueba!')
-              .htmlView('emails/verificationCode', { code: 5000 })
-          }) */
+              .to(auth.user!.email)
+              .subject('Código de verificación')
+              .htmlView('emails/verificationCode', { code: generatedCode })
+          })
 
 
           // Guardar código
