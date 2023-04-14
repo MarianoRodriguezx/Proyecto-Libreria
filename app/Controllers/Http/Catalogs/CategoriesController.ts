@@ -17,6 +17,20 @@ export default class CategoriesController {
     return view.render('pages/catalogs/categories', data)
   }
 
+  public async getActiveCategories({ auth, view }: HttpContextContract) {
+    const categories = await Category.query()
+    .where('status', true)
+    .orderBy('id', 'asc')
+
+    const data = {
+      list: categories,
+      isPrivate: isPrivate,
+      role: auth.user?.role
+    }
+    
+    return view.render('pages/catalogs/categories', data)
+  }
+
   public async create({}: HttpContextContract) {}
 
   public async store({}: HttpContextContract) {}
