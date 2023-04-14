@@ -4,6 +4,7 @@ import Env from '@ioc:Adonis/Core/Env'
 import StoreCategoryValidator from 'App/Validators/Catalogs/Category/StoreCategoryValidator'
 import TokenValidator from 'App/Validators/Tokens/TokenValidator'
 import UpdateCategoryValidator from 'App/Validators/Catalogs/Category/UpdateCategoryValidator'
+import GeneratedToken from 'App/Models/Tokens/GeneratedToken'
 const isPrivate = Env.get('IS_PRIVATE')
 
 export default class CategoriesController {
@@ -91,14 +92,14 @@ export default class CategoriesController {
     }
   }
 
-  public async update({request, session, response, params}: HttpContextContract) {
+  public async update({request, session, response, params, auth}: HttpContextContract) {
     try {
       // Validate
       await request.validate(UpdateCategoryValidator)
       const editToken = request.input("edit_token")
       
       // Update
-      if (editToken === '12345678') {
+      if (await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
         const categoryData = request.only(Category.store)
         const category = await Category.findOrFail(params.id)
         await category.merge(categoryData)
@@ -118,14 +119,14 @@ export default class CategoriesController {
     }
   }
 
-  public async destroy({request, params, session, response}: HttpContextContract) {
+  public async destroy({request, params, session, response, auth}: HttpContextContract) {
     try {
       // Validate
       await request.validate(TokenValidator)
       const editToken = request.input("edit_token")
 
       // Change Status
-      if (editToken === '12345678') {
+      if (await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
         const category = await Category.findOrFail(params.id)
         category.status = !category.status
         await category.save()
@@ -140,6 +141,23 @@ export default class CategoriesController {
       console.log(e)
       session.flash('form', 'Formulario inválido')
       return response.redirect().back()
+    }
+  }
+
+  private async useToken(type:number, token:string, email:string) { 
+    try {
+      const generatedToken = await GeneratedToken.findByOrFail('token', token)
+      if (!generatedToken.status || generatedToken.type !== type) {
+        return false
+      } else {
+        generatedToken.status = false;
+        generatedToken.used_email = email;
+        generatedToken.linked_table = 'Categorías';
+        await generatedToken.save()
+        return true
+      }
+    } catch (error) {
+      return false
     }
   }
 }
