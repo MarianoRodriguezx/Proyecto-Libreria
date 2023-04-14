@@ -6,7 +6,7 @@ import Env from '@ioc:Adonis/Core/Env'
 import Route from '@ioc:Adonis/Core/Route'
 
 export default class AuthController {
-    public async register({ request, response, auth }: HttpContextContract){
+    public async register({ request, response, auth }: HttpContextContract) {
         await request.validate(RegisterValidator)
         const userData = request.only(User.register)
         await User.create(userData)
@@ -21,42 +21,30 @@ export default class AuthController {
         })
     }
 
-    public async login({ request, response, auth }: HttpContextContract){
+    public async login({ request, response, auth, session }: HttpContextContract) {
         await request.validate(LoginValidator)
         const userData = request.only(User.login)
         const isPrivate = Env.get('IS_PRIVATE')
-        try{
+        try {
 
             const user = await User.findByOrFail('email', userData.email)
 
             // Validar status
             if (!user.status) {
-                response.status(405)
-                return {
-                    status: true,
-                    message: 'Tu cuenta no está activa',
-                    data: {},
-                }
+                session.flash('form', 'Tu cuenta se encuenta desactivada, contactate con el administrador')
+                return response.redirect().back()
             }
 
             // Validaciones de rol
             if (isPrivate) {
                 if (!User.privateAccess.includes(user.role)) {
-                    response.status(405)
-                    return {
-                        status: true,
-                        message: 'Este rol no tiene acceso permitido',
-                        data: {}
-                    }
+                    session.flash('form', 'Este usuario no tiene acceso permitido')
+                    return response.redirect().back()
                 }
             } else {
                 if (!User.publicAccess.includes(user.role)) {
-                    response.status(405)
-                    return {
-                        status: true,
-                        message: 'Este rol no tiene acceso permitido',
-                        data: {}
-                    }
+                    session.flash('form', 'Este usuario no tiene acceso permitido')
+                    return response.redirect().back()
                 }
             }
 
@@ -75,18 +63,14 @@ export default class AuthController {
                 return response.redirect(signedRoute)
             }
         }
-        catch(error){
+        catch (error) {
             console.log(error)
-            return response.redirect('/login')
-            /* return response.unauthorized({
-                status: false,
-                message: 'Correo o contraseña inválidos',
-                data: {},
-            }) */
+            session.flash('form', 'Tu Email o Contraseña son Incorrectos')
+            return response.redirect().back()
         }
     }
 
-    public async logout({ auth, response }: HttpContextContract){
+    public async logout({ auth, response }: HttpContextContract) {
         const user = await User.findByOrFail('email', auth.user!.email)
         user.verified = false;
         await user.save()
@@ -94,7 +78,7 @@ export default class AuthController {
         return response.redirect('/login')
     }
 
-    public async profile({ auth, response }: HttpContextContract){
+    public async profile({ auth, response }: HttpContextContract) {
         return response.ok({
             status: true,
             message: 'Perfil encontrado correctamente',

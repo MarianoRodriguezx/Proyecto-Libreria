@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   @entryPointStyles('app')
   @entryPointScripts('app')
 </head>
+
 <body>
 
   <main>
@@ -26,13 +28,15 @@
         </li>
 
         <li>
-          If you run into problems, you can reach us on <a href="https://discord.gg/vDcEjq6?">Discord</a> or the <a href="https://forum.adonisjs.com/">Forum</a>.
+          If you run into problems, you can reach us on <a href="https://discord.gg/vDcEjq6?">Discord</a> or the <a
+            href="https://forum.adonisjs.com/">Forum</a>.
         </li>
       </ul>
     </div>
-        <form action="{{ route('/api/logout') }}" method="POST">
-          <input type="submit" value="Cerrar sesión">
-      </form>
+    <form action="{{ route('/api/logout') }}" method="POST">
+      <input type="submit" value="Cerrar sesión">
+    </form>
   </main>
 </body>
+
 </html>
