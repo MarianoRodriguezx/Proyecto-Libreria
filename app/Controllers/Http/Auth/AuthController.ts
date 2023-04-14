@@ -55,7 +55,7 @@ export default class AuthController {
             if (+user.role === User.NORMAL.id) {
                 user.verified = true;
                 await user.save()
-                return response.redirect('/welcome')
+                return response.redirect('/dashboard')
             } else {
                 const signedRoute = Route.builder()
                     .params({ userId: auth.user!.id })

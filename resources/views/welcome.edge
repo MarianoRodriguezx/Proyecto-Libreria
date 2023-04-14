@@ -36,6 +36,12 @@
     <form action="{{ route('/api/logout') }}" method="POST">
       <input type="submit" value="Cerrar sesión">
     </form>
+
+    @if(auth.user)
+      <p>{{ auth.user.username }}</p>
+    @else
+      <p>NEL PERRO</p>
+    @end
   </main>
 </body>
 

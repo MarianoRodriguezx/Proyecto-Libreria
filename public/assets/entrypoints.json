@@ -15,6 +15,14 @@
       "js": [
         "http://localhost:8080/assets/styles-login.js"
       ]
+    },
+    "dashboard-styles": {
+      "css": [
+        "http://localhost:8080/assets/dashboard-styles.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/dashboard-styles.js"
+      ]
     }
   }
 }

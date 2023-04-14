@@ -31,8 +31,8 @@ import './modules/view/auth'
   return view.render('pages/page_login')
 }) */
 
-Route.get('/welcome', async ({ view }) => {
-  return view.render('welcome')  
+Route.get('/dashboard', async ({ view }) => {
+  return view.render('pages/dashboard')  
 }).middleware(['auth', 'verifyUser'])
 
 Route.on('/').redirect('/login')
@@ -40,6 +40,10 @@ Route.on('/').redirect('/login')
 Route.get('/not-found', async ({ view }) => {
   return view.render('errors/not-found')  
 })
+
+/* Route.get('/dashboard',async ({ view }) => {
+  return view.render('pages/dashboard')
+}) */
 
 // TEST
 

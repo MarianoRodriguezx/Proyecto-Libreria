@@ -2,5 +2,7 @@
   "assets/app.css": "http://localhost:8080/assets/app.css",
   "assets/app.js": "http://localhost:8080/assets/app.js",
   "assets/styles-login.css": "http://localhost:8080/assets/styles-login.css",
-  "assets/styles-login.js": "http://localhost:8080/assets/styles-login.js"
+  "assets/styles-login.js": "http://localhost:8080/assets/styles-login.js",
+  "assets/dashboard-styles.css": "http://localhost:8080/assets/dashboard-styles.css",
+  "assets/dashboard-styles.js": "http://localhost:8080/assets/dashboard-styles.js"
 }

@@ -56,7 +56,7 @@ export default class MailController {
             const user = await User.findByOrFail('email', auth.user!.email)
             user.verified = true;
             await user.save()
-            return response.redirect('/welcome')
+            return response.redirect('/dashboard')
           }
 
           // Si está mal
