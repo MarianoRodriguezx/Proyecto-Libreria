@@ -14,7 +14,8 @@
 
 <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script>
-        const channel = `verificate-{{email}}`
+        /* const channel = `verificate-{{email}}` */
+        const channel = `ingresar`
       const socket = io()
       socket.on(channel, (data) => {
         document.getElementById("myForm").submit();
