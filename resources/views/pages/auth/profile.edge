@@ -1,0 +1,13 @@
+@layout('layouts/main')
+@set('title', 'Mi perfil')
+
+@section('body')
+
+@include('partials/navbar')
+
+<div style="color:white">
+    <h1>Mi perfil</h1>
+    <p> Te llamas {{user.username}} y tu correo es {{user.email}}, de nada.</p>
+</div>
+
+@end

@@ -12,4 +12,4 @@ Route.group(() => {
     Route.post('logout', 'AuthController.logout')
     Route.get('profile', 'AuthController.profile')
   })
-  .namespace('App/Controllers/Http/Auth').prefix('api').middleware(['auth'])
+  .namespace('App/Controllers/Http/Auth').middleware(['auth'])

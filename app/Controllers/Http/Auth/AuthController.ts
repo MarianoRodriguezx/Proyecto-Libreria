@@ -78,11 +78,10 @@ export default class AuthController {
         return response.redirect('/login')
     }
 
-    public async profile({ auth, response }: HttpContextContract) {
-        return response.ok({
-            status: true,
-            message: 'Perfil encontrado correctamente',
-            data: auth.user
-        })
+    public async profile({ auth, view }: HttpContextContract) {
+        const data = {
+            user: auth.user
+        }
+        return view.render('pages/auth/profile', data)
     }
 }

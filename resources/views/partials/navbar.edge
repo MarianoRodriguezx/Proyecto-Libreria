@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Libreria CAM</a>
+        <a class="navbar-brand" href="/dashboard">Libreria CAM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,7 @@
                     <a class="nav-link" href="/editorials">Editorial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/categories">Categoria</a>
+                    <a class="nav-link" href="/categories">Categoría</a>
                 </li>
             </ul>
         </div>
@@ -35,12 +35,12 @@
                 href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" width="10%" alt="login-icon">
 
             <ul class="dropdown-menu dpdp">
-                <li><a class="dropdown-item" href="#">Datos del Usuario</a></li>
-                <li><a class="dropdown-item" href="#">Otra Opcion</a></li>
+                <li><a class="dropdown-item" href="/profile">Datos del Usuario</a></li>
+                <li><a class="dropdown-item" href="#">Cambiar contraseña?</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <form action="{{ route('/api/logout') }}" method="post">
+                <form action="{{ route('/logout') }}" method="post">
                     <li><input type="submit" class="dropdown-item" value="Cerrar Sesión"></li>
                 </form>
             </ul>
