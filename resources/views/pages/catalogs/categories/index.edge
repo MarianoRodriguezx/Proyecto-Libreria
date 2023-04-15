@@ -3,25 +3,95 @@
 
 @section('body')
 
-    @include('partials/navbar')
+@include('partials/navbar')
 
-    <div style="color:white">
-        <h1>Index de categories</h1>
-        <p>---------------------------</p>
-        <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-        <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-        <p>Lista: {{list}}</p> {{--  Lista de categorías  --}}
-        <br>
-        <p>---------------------------</p>
-        <a class="nav-link" href="categories/create">Crear</a>
-        <a class="nav-link" href="categories/1">Ver</a> {{--  Ejemplo de ID "1"  --}}
-        <a class="nav-link" href="categories/1/edit">editar</a> {{--  Ejemplo de ID "1"  --}}
-
-        <br>
-        <p>---------------------------</p>
-        <p>Servicio de eliminar un registro:</p>
-        <p>Método: DELETE</p>
-        <p>Ruta: categories/:id</p>
+<div class="container">
+    <br>
+    <h1 class="titles text-center">Categorías</h1><br>
+    <div class="bt">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><img
+                width="20px"
+                src="https://cdn.icon-icons.com/icons2/1993/PNG/512/add_circle_create_expand_new_plus_icon_123218.png">
+            Agregar</button>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Nueva Categoría</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/categories" method="post">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre de la Categoría</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Nombre de Categoria">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <table class="table table-secondary text-center tb">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Status</th>
+                <th scope="col">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(item in list)
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.status}}</td>
+                <td>
+                    {{-- <img src="https://cdn-icons-png.flaticon.com/512/61/61140.png" width="25px"> --}}
+                    {{-- <a href="categories/{{item.id}}"><img
+                            src="https://www.nicepng.com/png/full/285-2855595_imagen-imagen-real-de-ojo-eye.png"
+                            width="38px"></a> --}}
+                    <form action="" method=""></form>
+                    {{--  <a href=""><img
+                            src="https://www.propapel.mx/image/cache/catalog/Papeleria/432214_big_a-1000x1000.png"
+                            width="35px"></a>  --}}
+                    <form action="{{`/categories/${item.id}?_method=DELETE`}}" method="POST">
+                        
+                        <input type="image" width="38px"
+                            src="https://a1contenedores.com.mx/wp-content/uploads/2023/01/Bote-100-AC-1024x1024.webp"
+                            alt="contenedor">
+                        
+                        <input type="submit" value="prueba">
+                    </form>
+
+                </td>
+            </tr>
+            @end
+        </tbody>
+    </table>
+
+    <p>---------------------------</p>
+    <p>Es VPN: {{isPrivate}}</p> {{-- Determina si la conexión viene de VPN o Dominio --}}
+    <p>Rol: {{role}}</p> {{-- Determina el rol (1=normal, 2=supervisor, 3=admin) --}}
+    <p>Lista:</p> {{-- Lista de categorías --}}
+    <br>
+    <p>---------------------------</p>
+    <a class="nav-link" href="categories/create">Crear</a>
+    <a class="nav-link" href="categories/1">Ver</a> {{-- Ejemplo de ID "1" --}}
+    <a class="nav-link" href="categories/1/edit">editar</a> {{-- Ejemplo de ID "1" --}}
+
+    <br>
+    <p>---------------------------</p>
+    <p>Servicio de eliminar un registro:</p>
+    <p>Método: DELETE</p>
+    <p>Ruta: categories/:id</p>
+</div>
 
 @end

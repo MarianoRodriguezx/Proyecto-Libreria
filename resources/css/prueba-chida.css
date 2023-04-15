@@ -34,3 +34,21 @@
 .p-errorI {
     text-align: center;
 }
+
+.titles {
+    margin: auto;
+    font-family: fantasy;
+    font-size: 200%;
+    color: #eee;
+}
+
+.tb{
+    margin-top: 15px;
+}
+
+@media (min-width: 994px){
+    .bt{
+        margin-left: 90%;
+    }
+    
+}
