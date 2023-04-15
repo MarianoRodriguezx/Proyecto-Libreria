@@ -42,5 +42,6 @@ Server.middleware.registerNamed({
     auth: () => import('App/Middleware/Auth'),
     silenthAuth: () => import('App/Middleware/SilentAuth'),
     verifyUser: () => import('App/Middleware/VerifyUser'),
-    signedRoute: () => import('App/Middleware/SignedRoute')
+    signedRoute: () => import('App/Middleware/SignedRoute'),
+    adminRole: () => import('App/Middleware/AdminRole')
 })
