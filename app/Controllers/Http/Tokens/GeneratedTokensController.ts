@@ -25,4 +25,43 @@ export default class GeneratedTokensController {
           return response.redirect().back()
         }
       }
+
+
+      public async forceTokenEdit({ }: HttpContextContract) {
+        try {
+            const generatedToken = cuid()
+            const tokenData = {
+                generated_by: 1,
+                used_email: 'No canjeado',
+                token: generatedToken,
+                linked_table: 'No canjeado',
+                type: GeneratedToken.EDIT.id
+            }
+            await GeneratedToken.create(tokenData)
+            console.log(generatedToken)
+            return generatedToken
+        } catch (e) {
+          console.log(e)
+          return false
+        }
+      }
+
+      public async forceTokenDelete({ }: HttpContextContract) {
+        try {
+            const generatedToken = cuid()
+            const tokenData = {
+                generated_by: 1,
+                used_email: 'No canjeado',
+                token: generatedToken,
+                linked_table: 'No canjeado',
+                type: GeneratedToken.DELETE.id
+            }
+            await GeneratedToken.create(tokenData)
+            console.log(generatedToken)
+            return generatedToken
+        } catch (e) {
+          console.log(e)
+          return false
+        }
+      }
 }

@@ -25,6 +25,7 @@ import './modules/api/auth'
 import './modules/api/mail'
 import './modules/api/qr'
 import './modules/api/file'
+import './modules/api/token'
 // Views
 import './modules/view/auth'
 // Catalogs
