@@ -6,15 +6,24 @@
 @include('partials/navbar')
 
 <div style="color:white">
-    <h1>Mostrar categoría</h1>
+    <h1>Mostrar Libro</h1>
     <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
     <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
     <p>Item: {{item}}</p> {{--  Categoría  --}}
     <ul>
         <p>Id: {{item.id}}</p> {{--  Las ID no se deben mostrar  --}}
         <p>Nombre: {{item.name}}</p>
+        <p>Descripción: {{item.description}}</p>
+        <p>PDF: {{item.book_path}}</p>
+        <p>Img: {{item.cover_path}}</p>
+        <p>Autor id: {{item.author_id}}</p>
+        <p>Category id: {{item.category_id}}</p>
+        <p>Editorial id: {{item.editorial_id}}</p>
         <p>Activo: {{item.status}}</p>
+        <br>
+        <p>Spaces Path: {{spacesPath}}</p>
     </ul>
+    <img src="{{spacesPath}}/{{item.cover_path}}" alt="no jala">
     
 </div>
 

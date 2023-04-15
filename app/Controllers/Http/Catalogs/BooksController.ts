@@ -1,5 +1,4 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Env from '@ioc:Adonis/Core/Env'
 import TokenValidator from 'App/Validators/Tokens/TokenValidator'
 import GeneratedToken from 'App/Models/Tokens/GeneratedToken'
 import User from 'App/Models/User'
@@ -7,7 +6,15 @@ import Book from 'App/Models/Catalogs/Book'
 import StoreBookValidator from 'App/Validators/Catalogs/Book/StoreBookValidator'
 import UpdateBookValidator from 'App/Validators/Catalogs/Book/UpdateBookValidator'
 
+import Drive from '@ioc:Adonis/Core/Drive'
+import Env from '@ioc:Adonis/Core/Env'
+import { schema } from '@ioc:Adonis/Core/Validator'
+import Application from '@ioc:Adonis/Core/Application'
+import fs from 'fs'
+import { cuid } from '@ioc:Adonis/Core/Helpers'
+
 const isPrivate = Env.get('IS_PRIVATE')
+const fileDriverPath = `${Env.get('S3_ENDPOINT')}${Env.get('S3_BUCKET')}`
 
 export default class BooksController {
   // Views
@@ -40,7 +47,8 @@ export default class BooksController {
     const data = {
       item: book,
       isPrivate: isPrivate,
-      role: auth.user?.role
+      role: auth.user?.role,
+      spacesPath: fileDriverPath
     }
     
     return view.render('pages/catalogs/books/show', data)
@@ -79,17 +87,65 @@ export default class BooksController {
       // Validate
       await request.validate(StoreBookValidator)
 
-      //Create
-      const categoryData = request.only(Book.store)
-      await Book.create(categoryData)
+      const imageDataSchema = schema.create({
+        image_file: schema.file({
+            size: '10mb',
+            extnames: ['jpg', 'jpeg' ,'gif', 'png'],
+        })
+      })
+      const imageData = await request.validate({ schema: imageDataSchema })
+      const myImage = imageData.image_file;
+
+      const pdfDataSchema = schema.create({
+        pdf_file: schema.file({
+            size: '50mb',
+            extnames: ['pdf'],
+        })
+      })
+      const pdfData = await request.validate({ schema: pdfDataSchema })
+      const myPDF = pdfData.pdf_file;
+      
+      //get Info
+      const bookData = request.only(Book.store)
+      
+      const path = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
+      const filename = cuid()
+      const imagePath = `${path}${filename}.${myImage.extname}`
+      const pdfPath = `${path}${filename}.${myPDF.extname}`
+
+      await myImage.move(Application.tmpPath('uploads'), {
+        name: `${filename}.${myImage.extname}`,
+        overwrite: true
+      })
+      await Drive.putStream(imagePath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myImage.extname}`)), {})
+
+      await myPDF.move(Application.tmpPath('uploads'), {
+        name: `${filename}.${myPDF.extname}`,
+        overwrite: true
+      })
+      await Drive.putStream(pdfPath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myPDF.extname}`)), {})
+
+      // Create
+
+      const dataMerged = {
+        ...bookData,
+        posted_by: 1,
+        book_path: pdfPath,
+        cover_path: imagePath
+      }
+
+      console.log(dataMerged)
+      await Book.create(dataMerged)
+      return "Creado"
 
       // Response
-      session.flash('form', 'Libro guardado correctamente')
-      return response.redirect().back()
+      //session.flash('form', 'Libro guardado correctamente')
+      //return response.redirect().back()
     } catch (e) {
       console.log(e)
-      session.flash('form', 'Formulario inválido')
-      return response.redirect().back()
+      return "Error"
+      /* session.flash('form', 'Formulario inválido')
+      return response.redirect().back() */
     }
   }
 
@@ -101,9 +157,9 @@ export default class BooksController {
       
       // Update
       if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
-        const categoryData = request.only(Book.store)
+        const bookData = request.only(Book.store)
         const book = await Book.findOrFail(params.id)
-        await book.merge(categoryData)
+        await book.merge(bookData)
         await book.save()
 
         // Response
