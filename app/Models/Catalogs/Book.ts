@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import User from '../User'
+import Author from './Author'
+import Category from './Category'
+import Editorial from './Editorial'
 
 export default class Book extends BaseModel {
   @column({ isPrimary: true })
@@ -39,6 +43,31 @@ export default class Book extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  // Relations
+  @hasOne(() => User,{
+    foreignKey: "id",
+    localKey: "posted_by",
+  })
+  public postedBy: HasOne<typeof User>
+
+  @hasOne(() => Author,{
+    foreignKey: "id",
+    localKey: "author_id",
+  })
+  public author: HasOne<typeof Author>
+
+  @hasOne(() => Category,{
+    foreignKey: "id",
+    localKey: "category_id",
+  })
+  public category: HasOne<typeof Category>
+
+  @hasOne(() => Editorial,{
+    foreignKey: "id",
+    localKey: "editorial_id",
+  })
+  public editorial: HasOne<typeof Editorial>
 
   static get store () {
     return [

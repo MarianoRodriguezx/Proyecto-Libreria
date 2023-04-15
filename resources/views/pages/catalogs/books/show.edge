@@ -20,10 +20,16 @@
         <p>Category id: {{item.category_id}}</p>
         <p>Editorial id: {{item.editorial_id}}</p>
         <p>Activo: {{item.status}}</p>
+        <p>Publicado por: {{item.postedBy.username}}</p>
+        <p>Autor: {{item.author.name}}</p>
+        <p>Categoría: {{item.category.name}}</p>
+        <p>Editorial: {{item.editorial.name}}</p>
         <br>
         <p>Spaces Path: {{spacesPath}}</p>
     </ul>
     <img src="{{spacesPath}}/{{item.cover_path}}" alt="no jala">
+
+    <a href="{{spacesPath}}/{{item.book_path}}"> Descargar libro</a>
     
 </div>
 

@@ -42,7 +42,13 @@ export default class BooksController {
   }
 
   public async show({auth, view, params}: HttpContextContract) {
-    const book = await Book.findOrFail(params.id)
+    const book = await Book.query()
+    .where('id', params.id)
+    .preload('postedBy')
+    .preload('author')
+    .preload('category')
+    .preload('editorial')
+    .firstOrFail()
 
     const data = {
       item: book,
