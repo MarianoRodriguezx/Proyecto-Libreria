@@ -5,6 +5,7 @@ import StoreCategoryValidator from 'App/Validators/Catalogs/Category/StoreCatego
 import TokenValidator from 'App/Validators/Tokens/TokenValidator'
 import UpdateCategoryValidator from 'App/Validators/Catalogs/Category/UpdateCategoryValidator'
 import GeneratedToken from 'App/Models/Tokens/GeneratedToken'
+import User from 'App/Models/User'
 const isPrivate = Env.get('IS_PRIVATE')
 
 export default class CategoriesController {
@@ -99,7 +100,7 @@ export default class CategoriesController {
       const editToken = request.input("edit_token")
       
       // Update
-      if (await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
         const categoryData = request.only(Category.store)
         const category = await Category.findOrFail(params.id)
         await category.merge(categoryData)
@@ -126,7 +127,7 @@ export default class CategoriesController {
       const editToken = request.input("edit_token")
 
       // Change Status
-      if (await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.ADMIN.id || await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
         const category = await Category.findOrFail(params.id)
         category.status = !category.status
         await category.save()
