@@ -14,10 +14,13 @@
 
 <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script>
-        /* const channel = `verificate-{{email}}` */
-        const channel = `ingresar`
+        const channel = `verificate-{{email}}`
+        //const channel = `ingresar`
+        console.log(channel)
       const socket = io()
       socket.on(channel, (data) => {
+        console.log("señal detectada desde scan_qr.edge")
+        console.log(data)
         document.getElementById("myForm").submit();
       })
     </script>

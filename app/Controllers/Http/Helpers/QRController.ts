@@ -25,7 +25,6 @@ export default class MailController {
     public async forceQr({ request }: HttpContextContract) {
         const email = request.input('email')
         console.log(email)
-        //return "Obsoleto"
         Ws.io.emit(`verificate-${email}`, { my: 'data' })
     }
 }
