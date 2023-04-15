@@ -16,9 +16,9 @@ export default class UpdateCategoryValidator {
   })
 
   public messages: CustomMessages = {
-    'name.required': 'El campo correo es obligatorio',
-    'name.maxLength': 'El máximo de caracteres para el campo correo son 255',
-    'edit_token.required': 'El campo correo es obligatorio',
-    'edit_token.maxLength': 'El máximo de caracteres para el campo correo son 255'
+    'name.required': 'El campo nombre es obligatorio',
+    'name.maxLength': 'El máximo de caracteres para el campo nombre son 255',
+    'edit_token.required': 'El campo token es obligatorio',
+    'edit_token.maxLength': 'El máximo de caracteres para el campo token son 255'
   }
 }

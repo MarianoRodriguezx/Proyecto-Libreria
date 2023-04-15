@@ -12,7 +12,7 @@ export default class StoreCategoryValidator {
   })
 
   public messages: CustomMessages = {
-    'name.required': 'El campo correo es obligatorio',
-    'name.maxLength': 'El máximo de caracteres para el campo correo son 255'
+    'name.required': 'El campo nombre es obligatorio',
+    'name.maxLength': 'El máximo de caracteres para el campo nombre son 255'
   }
 }
