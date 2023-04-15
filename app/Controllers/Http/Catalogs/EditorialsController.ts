@@ -5,6 +5,7 @@ import GeneratedToken from 'App/Models/Tokens/GeneratedToken'
 import TokenValidator from 'App/Validators/Tokens/TokenValidator'
 import StoreEditorialValidator from 'App/Validators/Catalogs/Editorial/StoreEditorialValidator'
 import UpdateEditorialValidator from 'App/Validators/Catalogs/Editorial/UpdateEditorialValidator'
+import User from 'App/Models/User'
 
 const isPrivate = Env.get('IS_PRIVATE')
 
@@ -99,7 +100,7 @@ export default class EditorialsController {
       const editToken = request.input("edit_token")
       
       // Update
-      if (await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
         const authorData = request.only(Editorial.store)
         const editorial = await Editorial.findOrFail(params.id)
         await editorial.merge(authorData)
@@ -126,7 +127,7 @@ export default class EditorialsController {
       const editToken = request.input("edit_token")
 
       // Change Status
-      if (await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.ADMIN.id || await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
         const editorial = await Editorial.findOrFail(params.id)
         editorial.status = !editorial.status
         await editorial.save()

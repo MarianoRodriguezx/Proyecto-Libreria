@@ -1,0 +1,28 @@
+@layout('layouts/main')
+@set('title', 'Editar registro')
+
+@section('body')
+
+@include('partials/navbar')
+
+<div style="color:white">
+    <h1>Editar registro</h1>
+    <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
+    <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
+    <p>Item: {{item}}</p> {{--  Categoría  --}}
+    <ul>
+        <p>Id: {{item.id}}</p> {{--  Las ID no se deben mostrar  --}}
+        <p>Nombre: {{item.name}}</p>
+        <p>Activo: {{item.status}}</p>
+    </ul>
+
+    <br>
+    <p>---------------------------</p>
+    <p>Servicio de editar un registro:</p>
+    <p>Método: PUT</p>
+    <p>Ruta: authors/:id</p>
+    <p>Payload: name, nationality, edit_token</p>
+    
+</div>
+
+@end

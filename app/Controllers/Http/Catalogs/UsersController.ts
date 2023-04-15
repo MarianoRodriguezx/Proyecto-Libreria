@@ -3,7 +3,7 @@ import Env from '@ioc:Adonis/Core/Env'
 import GeneratedToken from 'App/Models/Tokens/GeneratedToken'
 import TokenValidator from 'App/Validators/Tokens/TokenValidator'
 import User from 'App/Models/User'
-import UpdateUserValidator from 'App/Validators/Catalogs/User/UpdateAuthorValidator'
+import UpdateUserValidator from 'App/Validators/Catalogs/User/UpdateUserValidator'
 import StoreUserValidator from 'App/Validators/Catalogs/User/StoreUserValidator'
 
 const isPrivate = Env.get('IS_PRIVATE')
@@ -99,7 +99,7 @@ export default class UsersController {
       const editToken = request.input("edit_token")
       
       // Update
-      if (await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
         const authorData = request.only(User.store)
         const user = await User.findOrFail(params.id)
         await user.merge(authorData)
@@ -126,7 +126,7 @@ export default class UsersController {
       const editToken = request.input("edit_token")
 
       // Change Status
-      if (await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.ADMIN.id || await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
         const user = await User.findOrFail(params.id)
         user.status = !user.status
         await user.save()

@@ -5,6 +5,7 @@ import GeneratedToken from 'App/Models/Tokens/GeneratedToken'
 import TokenValidator from 'App/Validators/Tokens/TokenValidator'
 import StoreAuthorValidator from 'App/Validators/Catalogs/Author/StoreAuthorValidator'
 import UpdateAuthorValidator from 'App/Validators/Catalogs/Author/UpdateAuthorValidator'
+import User from 'App/Models/User'
 
 const isPrivate = Env.get('IS_PRIVATE')
 
@@ -99,7 +100,7 @@ export default class AuthorsController {
       const editToken = request.input("edit_token")
       
       // Update
-      if (await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
         const authorData = request.only(Author.store)
         const author = await Author.findOrFail(params.id)
         await author.merge(authorData)
@@ -126,7 +127,7 @@ export default class AuthorsController {
       const editToken = request.input("edit_token")
 
       // Change Status
-      if (await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
+      if (+auth.user!.role === +User.ADMIN.id || await this.useToken(GeneratedToken.DELETE.id, editToken, auth.user!.email)) {
         const author = await Author.findOrFail(params.id)
         author.status = !author.status
         await author.save()

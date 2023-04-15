@@ -30,6 +30,10 @@ import './modules/api/token'
 import './modules/view/auth'
 // Catalogs
 import './modules/view/catalogs/category'
+import './modules/view/catalogs/book'
+import './modules/view/catalogs/author'
+import './modules/view/catalogs/editorial'
+import './modules/view/catalogs/user'
 
 
 /* Route.get('/', async ({ view }) => {

@@ -1,0 +1,21 @@
+@layout('layouts/main')
+@set('title', 'Editar registro')
+
+@section('body')
+
+@include('partials/navbar')
+
+<div style="color:white">
+    <h1>Crear registro</h1>
+    <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
+    <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
+    
+    <br>
+    <p>---------------------------</p>
+    <p>Servicio de Crear un registro:</p>
+    <p>Método: POST</p>
+    <p>Ruta: authors</p>
+    <p>Payload: name, nationality</p>
+</div>
+
+@end
