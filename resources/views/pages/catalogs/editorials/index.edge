@@ -1,0 +1,27 @@
+@layout('layouts/main')
+@set('title', 'Lista de categorías')
+
+@section('body')
+
+    @include('partials/navbar')
+
+    <div style="color:white">
+        <h1>Index de authors</h1>
+        <p>---------------------------</p>
+        <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
+        <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
+        <p>Lista: {{list}}</p> {{--  Lista de categorías  --}}
+        <br>
+        <p>---------------------------</p>
+        <a class="nav-link" href="authors/create">Crear</a>
+        <a class="nav-link" href="authors/1">Ver</a> {{--  Ejemplo de ID "1"  --}}
+        <a class="nav-link" href="authors/1/edit">editar</a> {{--  Ejemplo de ID "1"  --}}
+
+        <br>
+        <p>---------------------------</p>
+        <p>Servicio de eliminar un registro:</p>
+        <p>Método: DELETE</p>
+        <p>Ruta: authors/:id</p>
+    </div>
+
+@end

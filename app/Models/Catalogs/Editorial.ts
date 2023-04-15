@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
@@ -19,4 +21,15 @@ export default class Editorial extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  static get store () {
+    return [
+      'name',
+      'location'
+    ]
+  }
+
+  static get update () {
+    return this.store
+  }
 }

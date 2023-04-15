@@ -60,6 +60,18 @@ export default class User extends BaseModel {
     ]
   }
 
+  static get store () {
+    return this.register
+  }
+
+  static get update () {
+    return [
+      'email',
+      'username',
+      'role'
+    ]
+  }
+
   static get NORMAL () {
     return {
       id: 1,
