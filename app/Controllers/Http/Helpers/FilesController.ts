@@ -42,11 +42,9 @@ export default class FilesController {
             const path = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
             const filename = request.input("filename")
             const filePath = `${path}${filename}`
-            const url = await Drive.getSignedUrl(filePath, {
-                expiresIn: '30mins'
-                })
+            const url = await Drive.getUrl(filePath)
                 console.log(url)
-                return response.redirect(url)
+                return url
         } catch (error) {
             console.error(error)
             return response.status(500).send({ success: false, error: 'Error al descargar el archivo' })

@@ -1,13 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import LoginValidator from 'App/Validators/Auth/LoginValidator'
-import RegisterValidator from 'App/Validators/Auth/RegisterValidator'
 import Env from '@ioc:Adonis/Core/Env'
 import Route from '@ioc:Adonis/Core/Route'
 
 export default class AuthController {
-    public async register({ request, response, auth }: HttpContextContract) {
-        await request.validate(RegisterValidator)
+    public async register({ }: HttpContextContract) {
+        return "Método obsoleto"
+        /* await request.validate(RegisterValidator)
         const userData = request.only(User.register)
         await User.create(userData)
         // await auth.use('web').attempt(userData.email, userData.password)
@@ -18,7 +18,7 @@ export default class AuthController {
             data: {
                 "user": auth.user
             }
-        })
+        }) */
     }
 
     public async login({ request, response, auth, session }: HttpContextContract) {
