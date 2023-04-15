@@ -12,7 +12,7 @@ export default class TokenValidator {
   })
 
   public messages: CustomMessages = {
-    'edit_token.required': 'El campo correo es obligatorio',
-    'edit_token.maxLength': 'El máximo de caracteres para el campo correo son 255'
+    'edit_token.required': 'El campo edit_token es obligatorio',
+    'edit_token.maxLength': 'El máximo de caracteres para el campo edit_token son 255'
   }
 }

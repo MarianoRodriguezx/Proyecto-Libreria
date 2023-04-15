@@ -62,13 +62,18 @@
                     {{--  <a href=""><img
                             src="https://www.propapel.mx/image/cache/catalog/Papeleria/432214_big_a-1000x1000.png"
                             width="35px"></a>  --}}
+
+
+                    {{--  ELIMINAR  --}}
                     <form action="{{`/categories/${item.id}?_method=DELETE`}}" method="POST">
                         
+                        {{--  Ejemplo ingresando directamente el token. Deben pedir el Token primero antes de mandar la peticón  --}}
+                        {{--  Pueden generar un token para eliminar en Insomnia, método post, ruta: "127.0.0.1:3333/generate/token/f/delete"  --}}
+                        <input type="hidden" name="edit_token" value="clghdtpgu0000lwqv7lb9bf9k" /> 
+
                         <input type="image" width="38px"
                             src="https://a1contenedores.com.mx/wp-content/uploads/2023/01/Bote-100-AC-1024x1024.webp"
-                            alt="contenedor">
-                        
-                        <input type="submit" value="prueba">
+                            alt="contenedor">                        
                     </form>
 
                 </td>
