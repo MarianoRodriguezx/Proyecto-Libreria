@@ -23,6 +23,14 @@
       "js": [
         "http://localhost:8080/assets/dashboard-styles.js"
       ]
+    },
+    "prueba-chida": {
+      "css": [
+        "http://localhost:8080/assets/prueba-chida.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/prueba-chida.js"
+      ]
     }
   }
 }
