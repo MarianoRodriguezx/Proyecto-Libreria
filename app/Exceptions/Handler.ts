@@ -49,7 +49,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       })
     }
 
-    if (error.code === 'E_ROUTE_NOT_FOUND') {
+    if (['E_ROUTE_NOT_FOUND', 'E_ROW_NOT_FOUND'].includes(error.code)) {
       return ctx.response.redirect('/not-found') 
     }
 

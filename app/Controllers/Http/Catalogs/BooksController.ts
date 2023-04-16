@@ -114,10 +114,11 @@ export default class BooksController {
       //get Info
       const bookData = request.only(Book.store)
       
-      const path = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
+      const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
+      const pdfBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/pdf/' :  'oficial/pdf/';
       const filename = cuid()
-      const imagePath = `${path}${filename}.${myImage.extname}`
-      const pdfPath = `${path}${filename}.${myPDF.extname}`
+      const imagePath = `${imageBasePath}${filename}.${myImage.extname}`
+      const pdfPath = `${pdfBasePath}${filename}.${myPDF.extname}`
 
       await myImage.move(Application.tmpPath('uploads'), {
         name: `${filename}.${myImage.extname}`,
