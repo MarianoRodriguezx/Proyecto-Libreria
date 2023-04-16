@@ -60,10 +60,10 @@ Encore.addEntry('prueba-chida', './resources/js/prueba-chida.js')
 | we must copy them manually.
 |
 */
-// Encore.copyFiles({
-//   from: './resources/images',
-//   to: 'images/[path][name].[hash:8].[ext]',
-// })
+ Encore.copyFiles({
+   from: './resources/images',
+   to: 'images/[path][name].[hash:8].[ext]',
+ })
 
 /*
 |--------------------------------------------------------------------------

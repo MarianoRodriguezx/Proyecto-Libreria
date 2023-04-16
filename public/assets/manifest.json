@@ -6,5 +6,6 @@
   "assets/dashboard-styles.css": "http://localhost:8080/assets/dashboard-styles.css",
   "assets/dashboard-styles.js": "http://localhost:8080/assets/dashboard-styles.js",
   "assets/prueba-chida.css": "http://localhost:8080/assets/prueba-chida.css",
-  "assets/prueba-chida.js": "http://localhost:8080/assets/prueba-chida.js"
+  "assets/prueba-chida.js": "http://localhost:8080/assets/prueba-chida.js",
+  "assets/images/default.png": "http://localhost:8080/assets/images/default.1ea209ed.png"
 }

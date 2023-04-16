@@ -1,0 +1,32 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Token Requerido para dicha
+                accion</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <form action="{{`/categories/${id}?_method=DELETE`}}" method="POST">
+            <div class="modal-body">
+
+                {{id}}
+                <div class="mb-3">
+                    <label for="edit_token" class="form-label">Token del Administrador</label>
+                    <input type="text" class="form-control" id="edit_token" name="edit_token"
+                        placeholder="Token del Administrador">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Cancelar</button>
+                <input type="submit" class="btn btn-primary"
+                    value="Activar/Desactivar Registro">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
