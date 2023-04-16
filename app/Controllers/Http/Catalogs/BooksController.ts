@@ -20,6 +20,10 @@ export default class BooksController {
   // Views
   public async index({ auth, view }: HttpContextContract) {
     const books = await Book.query()
+    .preload('postedBy')
+    .preload('author')
+    .preload('category')
+    .preload('editorial')
     .orderBy('id', 'desc')
 
     const data = {
