@@ -3,8 +3,9 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {    
     Route.post('generate/token', 'GeneratedTokensController.generateToken').as('generateToken')
+    Route.get('tokens', 'GeneratedTokensController.index').as('index')
   })
-  .namespace('App/Controllers/Http/Tokens').middleware(['auth']);;
+  .namespace('App/Controllers/Http/Tokens').middleware(['auth', 'privilegeRole']);;
 
   Route.group(() => {    
     Route.post('generate/token/f/edit', 'GeneratedTokensController.forceTokenEdit').as('forceTokenEdit')

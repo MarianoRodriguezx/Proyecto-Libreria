@@ -12,7 +12,7 @@ export default class UsersController {
   // Views
   public async index({ auth, view }: HttpContextContract) {
     const users = await User.query()
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: users,
@@ -62,7 +62,7 @@ export default class UsersController {
   public async getActiveUsers({ auth }: HttpContextContract) {
     const users = await User.query()
     .where('status', true)
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: users,

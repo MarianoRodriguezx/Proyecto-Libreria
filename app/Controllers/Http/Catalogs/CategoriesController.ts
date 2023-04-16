@@ -13,7 +13,7 @@ export default class CategoriesController {
   // Views
   public async index({ auth, view }: HttpContextContract) {
     const categories = await Category.query()
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: categories,
@@ -63,7 +63,7 @@ export default class CategoriesController {
   public async getActiveCategories({ auth }: HttpContextContract) {
     const categories = await Category.query()
     .where('status', true)
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: categories,

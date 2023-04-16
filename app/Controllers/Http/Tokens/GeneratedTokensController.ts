@@ -2,6 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import GeneratedToken from 'App/Models/Tokens/GeneratedToken'
 import User from 'App/Models/User'
 import { cuid } from '@ioc:Adonis/Core/Helpers'
+import Env from '@ioc:Adonis/Core/Env'
+const isPrivate = Env.get('IS_PRIVATE')
 
 export default class GeneratedTokensController {
     public async generateToken({ session, response, auth}: HttpContextContract) {
@@ -16,9 +18,9 @@ export default class GeneratedTokensController {
             }
             await GeneratedToken.create(tokenData)
             console.log(generatedToken)
-            return true
-            /* session.flash('form', 'Categoría editada correctamente')
-            return response.redirect().back() */
+            //return true
+            session.flash('form', `Token: ${generatedToken}`)
+            return response.redirect().back()
         } catch (e) {
           console.log(e)
           session.flash('form', 'Formulario inválido')
@@ -63,5 +65,19 @@ export default class GeneratedTokensController {
           console.log(e)
           return false
         }
+      }
+
+      public async index({ auth, view }: HttpContextContract) {
+        const tokens = await GeneratedToken.query()
+        .preload('generatedBy')
+        .orderBy('id', 'desc')
+    
+        const data = {
+          list: tokens,
+          isPrivate: isPrivate,
+          role: auth.user?.role
+        }
+        
+        return view.render('pages/catalogs/tokens/index', data)
       }
 }

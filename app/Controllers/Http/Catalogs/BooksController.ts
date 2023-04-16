@@ -20,7 +20,7 @@ export default class BooksController {
   // Views
   public async index({ auth, view }: HttpContextContract) {
     const books = await Book.query()
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: books,
@@ -77,7 +77,7 @@ export default class BooksController {
   public async getActiveBooks({ auth }: HttpContextContract) {
     const books = await Book.query()
     .where('status', true)
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: books,
@@ -88,7 +88,7 @@ export default class BooksController {
     return data
   }
 
-  public async store({request, session, response}: HttpContextContract) {
+  public async store({request, session, response, auth}: HttpContextContract) {
     try {
       // Validate
       await request.validate(StoreBookValidator)
@@ -135,23 +135,20 @@ export default class BooksController {
 
       const dataMerged = {
         ...bookData,
-        posted_by: 1,
+        posted_by: auth.user!.id,
         book_path: pdfPath,
         cover_path: imagePath
       }
 
       console.log(dataMerged)
       await Book.create(dataMerged)
-      return "Creado"
-
       // Response
-      //session.flash('form', 'Libro guardado correctamente')
-      //return response.redirect().back()
+      session.flash('form', 'Libro guardado correctamente')
+      return response.redirect().back()
     } catch (e) {
       console.log(e)
-      return "Error"
-      /* session.flash('form', 'Formulario inválido')
-      return response.redirect().back() */
+      session.flash('form', 'Formulario inválido')
+      return response.redirect().back()
     }
   }
 

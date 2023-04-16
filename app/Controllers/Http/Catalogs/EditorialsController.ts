@@ -13,7 +13,7 @@ export default class EditorialsController {
   // Views
   public async index({ auth, view }: HttpContextContract) {
     const editorials = await Editorial.query()
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: editorials,
@@ -63,7 +63,7 @@ export default class EditorialsController {
   public async getActiveEditorials({ auth }: HttpContextContract) {
     const editorials = await Editorial.query()
     .where('status', true)
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: editorials,

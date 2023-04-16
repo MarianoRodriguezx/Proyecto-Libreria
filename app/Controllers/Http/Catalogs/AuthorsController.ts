@@ -13,7 +13,7 @@ export default class AuthorsController {
   // Views
   public async index({ auth, view }: HttpContextContract) {
     const authors = await Author.query()
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: authors,
@@ -63,7 +63,7 @@ export default class AuthorsController {
   public async getActiveAuthors({ auth }: HttpContextContract) {
     const authors = await Author.query()
     .where('status', true)
-    .orderBy('id', 'asc')
+    .orderBy('id', 'desc')
 
     const data = {
       list: authors,

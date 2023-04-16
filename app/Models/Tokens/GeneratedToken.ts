@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import User from '../User'
 
 export default class GeneratedToken extends BaseModel {
@@ -31,6 +31,12 @@ export default class GeneratedToken extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasOne(() => User,{
+    foreignKey: "id",
+    localKey: "generated_by",
+  })
+  public generatedBy: HasOne<typeof User>
 
   static get EDIT () {
     return {
