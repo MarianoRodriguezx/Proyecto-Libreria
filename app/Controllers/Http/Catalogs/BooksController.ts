@@ -25,7 +25,8 @@ export default class BooksController {
     const data = {
       list: books,
       isPrivate: isPrivate,
-      role: auth.user?.role
+      role: auth.user?.role,
+      spacesPath: fileDriverPath
     }
     
     return view.render('pages/catalogs/books/index', data)
