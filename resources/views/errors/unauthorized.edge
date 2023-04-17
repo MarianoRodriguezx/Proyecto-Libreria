@@ -1,1 +1,22 @@
-<p> It's a 403 </p>
+@layout('layouts/main')
+@set('title', '403 - Forbidden' )
+
+@section('body')
+
+<section class="section">
+    <div class="container">
+        <div class="div-notfound">
+            <div>
+                <div>
+                    <p class="p-404">403 - Forbidden</p>
+                    <p class="p-msg">
+                        Acceso denegado. <br>
+                        Lo sentimos, no tienes permiso para acceder a esta página.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@end

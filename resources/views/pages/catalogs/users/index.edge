@@ -5,6 +5,117 @@
 
     @include('partials/navbar')
 
+    <div class="container">
+        <br>
+        <h1 class="titles text-center">Usuarios</h1><br>
+        <div class="bt">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"><img
+                    width="20px"
+                    src="https://cdn.icon-icons.com/icons2/1993/PNG/512/add_circle_create_expand_new_plus_icon_123218.png">
+                Agregar
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear usuario</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form autocomplete="nope" action="/users" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre de usuario</label>
+                                <input type="text" autocomplete="nope" class="form-control" id="username" name="username"
+                                    placeholder="Nombre de usuario">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Correo</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Correo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Contraseña</label>
+                                <input type="password" autocomplete="nope" class="form-control" id="password" name="password"
+                                    placeholder="Contraseña">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Rol</label>
+                                <select class="form-select" id="role" name="role" aria-label="Default select example">
+                                    <option selected>Rol de usuario</option>
+                                    <option value="1">Normal</option>
+                                    <option value="2">Supervisor</option>
+                                    <option value="3">Administrador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <table class="table table-secondary text-center tb">
+    
+            <thead>
+                <tr>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Estatus</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                @each(item in list)
+    
+                <tr>
+                    <td>{{item.username}}</td>
+                    <td>{{item.email}}</td>
+                    <td>
+                        @if(item.role == 1)
+                            Normal
+                        @elseif(item.role == 2)
+                            Supervisor
+                        @elseif(item.role == 3)
+                            Administrador
+                        @endif
+                    </td>
+                    <td>
+                        @if(item.status)
+                        <img src="https://cdn-icons-png.flaticon.com/512/4676/4676041.png" width="35px">
+                        @else
+                        <img src="https://cdn-icons-png.flaticon.com/512/5978/5978441.png" width="35px">
+                        @endif
+                    </td>
+                    <td>
+                        <div class="btn-group dropstart">
+                            <img type="button" width="25px" src="https://cdn-icons-png.flaticon.com/512/61/61140.png"
+                                class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form action="{{`/users/${item.id}?_method=DELETE`}}" method="POST">
+    
+                                        <input type="hidden" name="edit_token" value="clghdtpgu0000lwqv7lb9bf9k" />
+                                        <button class="dropdown-item" type="submit">
+                                            Activar/Desactivar Registro
+                                        </button>
+                                    </form>
+                                    {{-- <a class="dropdown-item" href="#">Activar/Desactivar Registro</a> --}}
+                                </li>
+                                <li><a class="dropdown-item" href="#">Editar</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                @end
+            </tbody>
+        </table>
+
     <div style="color:white">
         <h1>Index de usuarios</h1>
         <p>---------------------------</p>

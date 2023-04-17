@@ -49,6 +49,7 @@ Encore.addEntry('app', './resources/js/app.js')
 Encore.addEntry('styles-login', './resources/js/styles-login.js')
 Encore.addEntry('dashboard-styles', './resources/js/dashboard-styles.js')
 Encore.addEntry('prueba-chida', './resources/js/prueba-chida.js')
+Encore.addEntry('email', './resources/js/email.js')
 
 /*
 |--------------------------------------------------------------------------
