@@ -84,4 +84,8 @@ export default class AuthController {
         }
         return view.render('pages/auth/profile', data)
     }
+
+    public async getRole({ auth }: HttpContextContract) {
+        return auth.user!.role
+    }
 }
