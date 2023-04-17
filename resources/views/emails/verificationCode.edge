@@ -1,12 +1,26 @@
+@entryPointStyles('email')
+@entryPointScripts('email')
+
 @layout('layouts/main')
 @set('title', 'Code Verifidied | Libreria' )
+
+
 
 @section('body')
 
 <section class="section">
-    <div class="container">
-        <p> Tu código de verificación es:</p>
-        <p style="font-size: 50;">{{code}}</p>
+    <div class="container" style="color: #eee;
+    font-size: 150%;
+    text-align: center;
+    max-width: 500px; 
+    margin-top: 2%;">
+        <p style="text-align: center; color: #eee; font-size:100%;">Librería CAM</p>
+        <img style="text-align: center; width: 30%; height: 30%" 
+            src="https://cdn3d.iconscout.com/3d/premium/thumb/password-security-7044924-5731481.png" 
+            class="img-fluid rounded-top" alt="">
+        <p style="text-align: center; color: #ea4c88; font-size:120%;">{{code}}</p>
+        <p style="text-align: center; color: #858b91; font-size:100%;"> Este es tu código de verificación para poder acceder a </p>
+        <p style="text-align: center; font-size: 50; color: #eee; color: #eee; font-size:100%;">Librería CAM</p>
     </div>
 </section>
 

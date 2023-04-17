@@ -1,12 +1,12 @@
-@layout('layouts/main-login')
+@layout('layouts/main')
 @set('title', 'Escanear QR' )
 
 @section('body')
 
 <section class="section">
-    <div class="container">
+    <div class="container div-qr">
         <p> Escanea este QR en tu app</p>
-        <img src="{{ qrCode }}" alt="QR code" width="600px" height="600px">
+        <img src="{{ qrCode }}" alt="QR code" class="qr-img">
     </div>
 
     <form id="myForm" action="{{ route('submitQR') }}" method="POST"> </form>
