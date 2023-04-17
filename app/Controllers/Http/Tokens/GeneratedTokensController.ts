@@ -9,21 +9,22 @@ export default class GeneratedTokensController {
     public async generateToken({ session, response, auth}: HttpContextContract) {
         try {
             const generatedToken = cuid()
+            const tokenType = +auth.user!.role === +User.SUPERVISOR.id ? GeneratedToken.EDIT.id : GeneratedToken.DELETE.id // 1=Edit, 2=Delete
             const tokenData = {
                 generated_by: auth.user!.id,
                 used_email: 'No canjeado',
                 token: generatedToken,
                 linked_table: 'No canjeado',
-                type: +auth.user!.role === +User.SUPERVISOR.id ? GeneratedToken.EDIT.id : GeneratedToken.DELETE.id // 1=Edit, 2=Delete
+                type: tokenType
             }
             await GeneratedToken.create(tokenData)
             console.log(generatedToken)
             //return true
-            session.flash('form', `Token: ${generatedToken}`)
+            session.flash('success', `Token para ${+tokenType === +GeneratedToken.EDIT.id ? "EDITAR" : "ELIMINAR"}: ${generatedToken}`)
             return response.redirect().back()
         } catch (e) {
           console.log(e)
-          session.flash('form', 'Formulario inválido')
+          session.flash('success', 'Formulario inválido')
           return response.redirect().back()
         }
       }

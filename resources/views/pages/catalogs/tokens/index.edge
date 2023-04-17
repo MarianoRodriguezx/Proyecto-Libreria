@@ -7,6 +7,20 @@
 
 
     <div style="color:white">
+
+        @if (flashMessages.has('success'))
+        <br>
+        <div class="alert alert-danger alert-dismissible fade show text-center alr" role="alert" style="background-color: greenyellow; color:black; border-color: black;">
+            {{ flashMessages.get('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        {{--  Generar Token automáticamente en base al rol. No requiere mandar parámetros  --}}
+        <form action="generate/token" method="POST">
+            <button type="submit">Generar Token</button>                
+        </form>
+
         @each(item in list)
         <p>----------------------</p>
         <p>Token: {{item.token}}</p>
@@ -25,11 +39,6 @@
         <p>Lista: {{list}}</p> {{--  Lista de categorías  --}}
         <br>
         <p>---------------------------</p>
-
-        {{--  Generar Token automáticamente en base al rol. No requiere mandar parámetros  --}}
-        <form action="generate/token" method="POST">
-           <button type="submit">Generar Token</button>                
-        </form>
 
     </div>
 
