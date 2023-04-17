@@ -10,6 +10,7 @@ Route.group(() => {
   
   Route.group(() => {    
     Route.post('logout', 'AuthController.logout')
+    Route.post('get/role', 'AuthController.getRole')
   })
   .namespace('App/Controllers/Http/Auth').middleware(['auth'])
 

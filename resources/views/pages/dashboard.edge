@@ -6,5 +6,95 @@
     @include('partials/navbar')
 
     <img src="{{ asset('assets/images/default.png') }}" alt="C:\Users\carlo\OneDrive\Documents\UTT\Inge\8vo\Seguridad Informática\Proyecto final\Proyecto-Libreria\resources\images\default.png">
+    <hr style="color:white;">
+
+    <div style="color:white;">
+        <h1> Libros</h1>
+        <h3> Crear un Libro</h3>
+        <ul>
+            <li>name (string)</li>
+            <li>description (string)</li>
+            <li>author_id (number)</li>
+            <li>category_id(number)</li>
+            <li>editorial_id(number)</li>
+            <li>image_file(['jpg', 'jpeg' ,'gif', 'png'])</li>
+            <li>pdf_file(['pdf'])</li>
+        </ul>
+        <h3> Editar un Libro</h3>
+        <ul>
+            <li>name (string)</li>
+            <li>description (string)</li>
+            <li>author_id (number)</li>
+            <li>category_id(number)</li>
+            <li>editorial_id(number)</li>
+        </ul>
+        <h3> Actualizar portada</h3>
+        <ul>
+            <li>image_file(['jpg', 'jpeg' ,'gif', 'png'])</li>
+        </ul>
+        <p>Ruta: books/update/cover/:id</p>
+        <p> Método: PUT</p>
+
+        <h3> Actualizar PDF</h3>
+        <ul>
+            <li>pdf_file(['pdf'])</li>
+        </ul>
+        <p>Ruta: books/update/pdf/:id</p>
+        <p> Método: PUT</p>
+        {{--  ----------------------------------  --}}
+        <hr>
+        <h1> Categorías</h1>
+        <h3> Crear una categoría</h3>
+        <ul>
+            <li>name (string)</li>
+        </ul>
+        <h3> Editar una categoría</h3>
+        <ul>
+            <li>name (string)</li>
+        </ul>
+
+        {{--  ----------------------------------  --}}
+        <hr>
+        <h1> Autores</h1>
+        <h3> Crear un autor</h3>
+        <ul>
+            <li>name (string)</li>
+            <li>nationality (string)</li>
+        </ul>
+        <h3> Editar un autor</h3>
+        <ul>
+            <li>name (string)</li>
+            <li>nationality (string)</li>
+        </ul>
+        {{--  ----------------------------------  --}}
+        <hr>
+        <h1> Usuarios</h1>
+        <h3> Crear un usuario</h3>
+        <ul>
+            <li>password (string)</li>
+            <li>email (string)</li>
+            <li>username (string)</li>
+            <li>role ([1,2,3])</li>
+        </ul>
+        <h3> Editar un usuario</h3>
+        <ul>
+            <li>email (string)</li>
+            <li>username (string)</li>
+            <li>role ([1,2,3])</li>
+        </ul>
+        {{--  ----------------------------------  --}}
+        <hr>
+        <h1> Editorials</h1>
+        <h3> Crear un Editorial</h3>
+        <ul>
+            <li>name (string)</li>
+            <li>location (string)</li>
+        </ul>
+        <h3> Editar un Editorial</h3>
+        <ul>
+            <li>name (string)</li>
+            <li>location (string)</li>
+        </ul>
+    </div>
 
 @end

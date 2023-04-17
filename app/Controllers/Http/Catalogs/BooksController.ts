@@ -20,12 +20,17 @@ export default class BooksController {
   // Views
   public async index({ auth, view }: HttpContextContract) {
     const books = await Book.query()
+    .preload('postedBy')
+    .preload('author')
+    .preload('category')
+    .preload('editorial')
     .orderBy('id', 'desc')
 
     const data = {
       list: books,
       isPrivate: isPrivate,
-      role: auth.user?.role
+      role: auth.user?.role,
+      spacesPath: fileDriverPath
     }
     
     return view.render('pages/catalogs/books/index', data)
@@ -221,4 +226,93 @@ export default class BooksController {
       return false
     }
   }
+
+  public async updateCover({request, session, response, params}: HttpContextContract) {
+    try {
+      // Validate
+      const book = await Book.findOrFail(params.id)
+      const filename = book.cover_path.split('/').pop()?.split('.')[0];
+      const imageDataSchema = schema.create({
+        image_file: schema.file({
+            size: '10mb',
+            extnames: ['jpg', 'jpeg' ,'gif', 'png'],
+        })
+      })
+      const imageData = await request.validate({ schema: imageDataSchema })
+      const myImage = imageData.image_file;   
+
+      // Delete Old file
+
+      if (await Drive.exists(book.cover_path)) {
+        await Drive.delete(book.cover_path)
+      }
+
+      // Upload File
+      
+      const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
+      const imagePath = `${imageBasePath}${filename}.${myImage.extname}`
+
+      await myImage.move(Application.tmpPath('uploads'), {
+        name: `${filename}.${myImage.extname}`,
+        overwrite: true
+      })
+      await Drive.putStream(imagePath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myImage.extname}`)), {})
+
+      // Update
+      book.cover_path = imagePath
+      await book.save()
+      // Response
+      session.flash('form', 'Libro guardado correctamente')
+      return response.redirect().back()
+    } catch (e) {
+      console.log(e)
+      session.flash('form', 'Formulario inválido')
+      return response.redirect().back()
+    }
+  }
+
+  public async updatePdf({request, session, response, params}: HttpContextContract) {
+    try {
+      // Validate
+      const book = await Book.findOrFail(params.id)
+      const filename = book.book_path.split('/').pop()?.split('.')[0];
+      const pdfDataSchema = schema.create({
+        pdf_file: schema.file({
+            size: '50mb',
+            extnames: ['pdf'],
+        })
+      })
+      const pdfData = await request.validate({ schema: pdfDataSchema })
+      const myPdf = pdfData.pdf_file;   
+
+      // Delete Old file
+
+      if (await Drive.exists(book.book_path)) {
+        await Drive.delete(book.book_path)
+      }
+
+      // Upload File
+      
+      const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/pdf/' :  'oficial/pdf/';
+      const pdfPath = `${imageBasePath}${filename}.${myPdf.extname}`
+
+      await myPdf.move(Application.tmpPath('uploads'), {
+        name: `${filename}.${myPdf.extname}`,
+        overwrite: true
+      })
+      await Drive.putStream(pdfPath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myPdf.extname}`)), {})
+
+      // Update
+      book.book_path = pdfPath
+      await book.save()
+      // Response
+      session.flash('form', 'Libro guardado correctamente')
+      return response.redirect().back()
+    } catch (e) {
+      console.log(e)
+      session.flash('form', 'Formulario inválido')
+      return response.redirect().back()
+    }
+  }
+
 }
