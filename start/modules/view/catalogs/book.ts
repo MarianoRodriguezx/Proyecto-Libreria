@@ -6,4 +6,4 @@ Route.group(() => {
     
 })
 .namespace('App/Controllers/Http/Catalogs')
-.middleware(['auth', 'verifyUser'])
+//.middleware(['auth', 'verifyUser'])

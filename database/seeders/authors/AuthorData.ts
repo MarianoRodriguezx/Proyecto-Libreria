@@ -33,5 +33,10 @@ export const authors: IAuthor[] = [
         // ID 6
         name: "José Emilio Pacheco",
         nationality: "México"
+    },
+    {   
+        // ID 7
+        name: "Mariano A.C. Rodríguez",
+        nationality: "México"
     }
 ]
