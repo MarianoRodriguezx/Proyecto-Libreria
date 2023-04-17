@@ -16,5 +16,7 @@ Route.group(() => {
 
   Route.group(() => {    
     Route.get('profile', 'AuthController.profile')
+    Route.get('change-password', 'AuthController.changePassword')
+    Route.post('update-password', 'AuthController.updatePassword')
   })
   .namespace('App/Controllers/Http/Auth').middleware(['auth', 'verifyUser'])

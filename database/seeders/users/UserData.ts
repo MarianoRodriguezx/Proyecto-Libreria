@@ -62,5 +62,12 @@ export const users: IUser[] = [
         username: "Mariano Admin",
         password: "12345678",
         role: 3,
+    },
+    {   
+        // ID 9
+        email: "americaloa145@gmail.com",
+        username: "América Admin",
+        password: "12345678",
+        role: 3,
     }
 ]
