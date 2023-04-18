@@ -57,6 +57,8 @@ export default class AuthController {
                 await user.save()
                 return response.redirect('/dashboard')
             } else {
+                user.verified = false;
+                await user.save()
                 const signedRoute = Route.builder()
                     .params({ userId: auth.user!.id })
                     .makeSigned('/sendMail', { expiresIn: '1m' })
