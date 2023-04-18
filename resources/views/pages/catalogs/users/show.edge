@@ -1,21 +1,50 @@
 @layout('layouts/main')
-@set('title', 'Editar categoría')
+@set('title', 'Editar usuario')
 
 @section('body')
 
 @include('partials/navbar')
 
-<div style="color:white">
-    <h1>Mostrar categoría</h1>
-    <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-    <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-    <p>Item: {{item}}</p> {{--  Categoría  --}}
-    <ul>
-        <p>Id: {{item.id}}</p> {{--  Las ID no se deben mostrar  --}}
-        <p>Nombre: {{item.name}}</p>
-        <p>Activo: {{item.status}}</p>
-    </ul>
-    
+<div class="container div-code">
+    <h1 class="titles text-center">Editar usuario</h1><br>
+    <form action="{{`/users/${item.id}?_method=PUT`}}" method="POST">
+        <input type="hidden" name="edit_token" value="clglmjhms0002toukerr95spt" id="edit_token"/>
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Nombre de usuario</label>
+            <input type="text" class="form-control input-code" id="username" name="username" value="{{item.username}}"> 
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Correo</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{item.email}}">
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Contraseña</label>
+            <input type="password" autocomplete="off" class="form-control" id="password" name="password" value="{{item.password}}">
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Rol</label>
+            <select class="form-select" id="role" name="role" aria-label="Default select example">
+                @if(item.role == 1)
+                    <option>Rol de usuario</option>
+                    <option selected value="1">Normal</option>
+                    <option value="2">Supervisor</option>
+                    <option value="3">Administrador</option>
+                @elseif(item.role == 2)
+                    <option>Rol de usuario</option>
+                    <option value="1">Normal</option>
+                    <option selected value="2">Supervisor</option>
+                    <option value="3">Administrador</option>
+                @elseif(item.role == 3)
+                    <option>Rol de usuario</option>
+                    <option value="1">Normal</option>
+                    <option value="2">Supervisor</option>
+                    <option selected value="3">Administrador</option>
+                @endif
+                
+            </select>
+        </div>
+        <input type="submit" class="btn button-code" value="Editar registro">
+    </form>
 </div>
 
 @end

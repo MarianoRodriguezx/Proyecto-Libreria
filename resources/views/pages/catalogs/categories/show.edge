@@ -5,17 +5,18 @@
 
 @include('partials/navbar')
 
-<div style="color:white">
-    <h1>Mostrar categoría</h1>
-    <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-    <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-    <p>Item: {{item}}</p> {{--  Categoría  --}}
-    <ul>
-        <p>Id: {{item.id}}</p> {{--  Las ID no se deben mostrar  --}}
-        <p>Nombre: {{item.name}}</p>
-        <p>Activo: {{item.status}}</p>
-    </ul>
-    
+<div class="container div-code">
+    <h1 class="titles text-center">Editar categoría</h1><br>
+    <form action="{{`/categories/${item.id}?_method=PUT`}}" method="POST">
+        <input type="hidden" name="edit_token" value="clgllrsz80007wwukb48g4zis" id="edit_token"/>
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Nombre de la categoría</label>
+            <input type="text" class="form-control input-code" id="name" name="name"
+                placeholder="Nombre del Autor" value="{{item.name}}"> 
+        </div>
+        <input type="submit" class="btn button-code" value="Editar registro">
+    </form>
 </div>
+
 
 @end

@@ -31,6 +31,14 @@
       "js": [
         "http://localhost:8080/assets/prueba-chida.js"
       ]
+    },
+    "email": {
+      "css": [
+        "http://localhost:8080/assets/email.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/email.js"
+      ]
     }
   }
 }
