@@ -23,11 +23,11 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Crear usuario</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form autocomplete="nope" action="/users" method="post">
+                    <form autocomplete="off" action="/users" method="post">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nombre de usuario</label>
-                                <input type="text" autocomplete="nope" class="form-control" id="username" name="username"
+                                <input type="text" autocomplete="off" class="form-control" id="username" name="username"
                                     placeholder="Nombre de usuario">
                             </div>
                             <div class="mb-3">
@@ -37,7 +37,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Contraseña</label>
-                                <input type="password" autocomplete="nope" class="form-control" id="password" name="password"
+                                <input type="password" autocomplete="off" class="form-control" id="password" name="password"
                                     placeholder="Contraseña">
                             </div>
                             <div class="mb-3">
@@ -107,7 +107,7 @@
                                     </form>
                                     {{-- <a class="dropdown-item" href="#">Activar/Desactivar Registro</a> --}}
                                 </li>
-                                <li><a class="dropdown-item" href="#">Editar</a></li>
+                                <li><a class="dropdown-item" href="{{`/users/${item.id}?`}}">Editar</a></li>
                             </ul>
                         </div>
                     </td>
@@ -115,24 +115,5 @@
                 @end
             </tbody>
         </table>
-
-    <div style="color:white">
-        <h1>Index de usuarios</h1>
-        <p>---------------------------</p>
-        <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-        <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-        <p>Lista: {{list}}</p> {{--  Lista de categorías  --}}
-        <br>
-        <p>---------------------------</p>
-        <a class="nav-link" href="authors/create">Crear</a>
-        <a class="nav-link" href="authors/1">Ver</a> {{--  Ejemplo de ID "1"  --}}
-        <a class="nav-link" href="authors/1/edit">editar</a> {{--  Ejemplo de ID "1"  --}}
-
-        <br>
-        <p>---------------------------</p>
-        <p>Servicio de eliminar un registro:</p>
-        <p>Método: DELETE</p>
-        <p>Ruta: authors/:id</p>
-    </div>
 
 @end

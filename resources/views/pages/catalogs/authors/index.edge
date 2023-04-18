@@ -28,7 +28,7 @@
                     <div class="modal-body">
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nombrel Autor</label>
+                            <label for="name" class="form-label">Nombre Autor</label>
                             <input type="text" class="form-control" id="name" name="name"
                                 placeholder="Nombre del Autor">
                         </div>
@@ -107,6 +107,8 @@
                         </div>
                     </div>
 
+                    
+
                     <div class="btn-group dropstart">
                         <img type="button" width="25px" src="https://cdn-icons-png.flaticon.com/512/61/61140.png"
                             class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -130,7 +132,9 @@
                                 @end
                                 {{-- <a class="dropdown-item" href="#">Activar/Desactivar Registro</a> --}}
                             </li>
-                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{`/authors/${item.id}`}}">Editar</a>
+                            </li>
                         </ul>
                     </div>
                 </td>

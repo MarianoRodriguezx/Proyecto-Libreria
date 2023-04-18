@@ -1,21 +1,25 @@
 @layout('layouts/main')
-@set('title', 'Editar categoría')
+@set('title', 'Editar editorial')
 
 @section('body')
 
 @include('partials/navbar')
 
-<div style="color:white">
-    <h1>Mostrar categoría</h1>
-    <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-    <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-    <p>Item: {{item}}</p> {{--  Categoría  --}}
-    <ul>
-        <p>Id: {{item.id}}</p> {{--  Las ID no se deben mostrar  --}}
-        <p>Nombre: {{item.name}}</p>
-        <p>Activo: {{item.status}}</p>
-    </ul>
-    
+<div class="container div-code">
+    <h1 class="titles text-center">Editar editorial</h1><br>
+    <form action="{{`/authors/${item.id}?_method=PUT`}}" method="POST">
+        <input type="hidden" name="edit_token" value="clgllg83z0005wwukgamfgubv" id="edit_token"/>
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Nombre Editorial</label>
+            <input type="text" class="form-control input-code" id="name" name="name" value="{{item.name}}"> 
+        </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Locación</label>
+            <input type="text" class="form-control input-code" id="location" name="location" value="{{item.location}}">
+        </div>
+        <input type="submit" class="btn button-code" value="Editar registro">
+    </form>
 </div>
 
 @end

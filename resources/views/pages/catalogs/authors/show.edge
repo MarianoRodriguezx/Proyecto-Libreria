@@ -1,21 +1,27 @@
 @layout('layouts/main')
-@set('title', 'Editar categoría')
+@set('title', 'Editar autor')
 
 @section('body')
 
 @include('partials/navbar')
 
-<div style="color:white">
-    <h1>Mostrar categoría</h1>
-    <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-    <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-    <p>Item: {{item}}</p> {{--  Categoría  --}}
-    <ul>
-        <p>Id: {{item.id}}</p> {{--  Las ID no se deben mostrar  --}}
-        <p>Nombre: {{item.name}}</p>
-        <p>Activo: {{item.status}}</p>
-    </ul>
-    
+<div class="container div-code">
+    <h1 class="titles text-center">Editar autor</h1><br>
+    <form action="{{`/authors/${item.id}?_method=PUT`}}" method="POST">
+        <input type="hidden" name="edit_token" value="clgllg83z0005wwukgamfgubv" id="edit_token"/>
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Nombre Autor</label>
+            <input type="text" class="form-control input-code" id="name" name="name"
+                placeholder="Nombre del Autor" value="{{item.name}}"> 
+        </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label p-code">Nacionalidad del Autor</label>
+            <input type="text" class="form-control input-code" id="nationality" name="nationality"
+                placeholder="Nacionalidad del Autor" value="{{item.nationality}}">
+        </div>
+        <input type="submit" class="btn button-code" value="Editar registro">
+    </form>
 </div>
 
 @end
