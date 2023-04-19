@@ -3,23 +3,73 @@
 
 @section('body')
 
-    @include('partials/navbar')
+@include('partials/navbar')
 
 
-    <div style="color:white">
+<div style="color:white">
 
-        @if (flashMessages.has('success'))
+    @if (flashMessages.has('success'))
+    <br>
+    <div class="alert alert-danger alert-dismissible fade show text-center alr" role="alert"
+        style="background-color: greenyellow; color:black; border-color: black;">
+        {{ flashMessages.get('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    {{-- Generar Token automáticamente en base al rol. No requiere mandar parámetros --}}
+    <form action="generate/token" method="POST">
+        <button type="submit">Generar Token</button>
+    </form>
+
+    <div class="container">
         <br>
-        <div class="alert alert-danger alert-dismissible fade show text-center alr" role="alert" style="background-color: greenyellow; color:black; border-color: black;">
-            {{ flashMessages.get('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
+        <h1 class="titles text-center">Tokens</h1><br>
 
-        {{--  Generar Token automáticamente en base al rol. No requiere mandar parámetros  --}}
-        <form action="generate/token" method="POST">
-            <button type="submit">Generar Token</button>                
-        </form>
+        <div class="bt2">
+            <form action="generate/token" method="POST">
+                <button style="width: 100%;" class="btn btn-success" type="submit"><img width="20px"
+                        src="https://cdn.icon-icons.com/icons2/1993/PNG/512/add_circle_create_expand_new_plus_icon_123218.png">Generar
+                    Token</button>
+            </form>
+        </div>
+
+            <table class="table table-secondary text-center tb">
+
+                <thead>
+                    <tr>
+                        <th scope="col">Token</th>
+                        <th scope="col">Tabla</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Utilizado Por</th>
+                        <th scope="col">Generado Por</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @each(item in list)
+
+                    <tr>
+                        <td>{{item.token}}</td>
+                        <td>{{item.linked_table}}</td>
+                        <td>
+                            @if(item.status)
+                            <img src="https://cdn-icons-png.flaticon.com/512/4676/4676041.png" width="35px">
+                            @else
+                            <img src="https://cdn-icons-png.flaticon.com/512/5978/5978441.png" width="35px">
+                            @endif
+                        </td>
+                        <td>{{+item.type === 1 ? 'Editar' : 'Eliminar'}}</td>
+                        <td>{{item.used_email}}</td>
+                        <td>{{item.generatedBy.username}}</td>
+                    </tr>
+                    @end
+                </tbody>
+            </table>
+        </div>
+
+
 
         @each(item in list)
         <p>----------------------</p>
@@ -34,12 +84,12 @@
         <p>***************************************</p>
         <h1>Index de tokens</h1>
         <p>---------------------------</p>
-        <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-        <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-        <p>Lista: {{list}}</p> {{--  Lista de categorías  --}}
+        <p>Es VPN: {{isPrivate}}</p> {{-- Determina si la conexión viene de VPN o Dominio --}}
+        <p>Rol: {{role}}</p> {{-- Determina el rol (1=normal, 2=supervisor, 3=admin) --}}
+        <p>Lista: {{list}}</p> {{-- Lista de categorías --}}
         <br>
         <p>---------------------------</p>
 
     </div>
 
-@end
+    @end
