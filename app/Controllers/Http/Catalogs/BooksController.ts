@@ -111,6 +111,8 @@ export default class BooksController {
     try {
       // Validate
       console.log(request.input("description"))
+      console.log(request.input("image_file"))
+      console.log(request.input("pdf_file"))
       const bookValidation = await request.validate(StoreBookValidator)
 
       /* const imageDataSchema = schema.create({
