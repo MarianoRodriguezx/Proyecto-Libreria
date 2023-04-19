@@ -27,6 +27,7 @@ export default class BooksController {
     .preload('author')
     .preload('category')
     .preload('editorial')
+    .where('status', true)
     .orderBy('id', 'desc')
 
      /*Datos necesarios para Crear*/

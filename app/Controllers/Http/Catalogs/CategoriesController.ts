@@ -60,18 +60,18 @@ export default class CategoriesController {
 
   // API
 
-  public async getActiveCategories({ auth }: HttpContextContract) {
+  public async getActiveCategories({ }: HttpContextContract) {
     const categories = await Category.query()
     .where('status', true)
     .orderBy('id', 'desc')
 
-    const data = {
+    /* const data = {
       list: categories,
       isPrivate: isPrivate,
       role: auth.user?.role
-    }
+    } */
     
-    return data
+    return categories
   }
 
   public async store({request, session, response}: HttpContextContract) {

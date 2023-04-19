@@ -3,8 +3,15 @@
 
 @section('body')
 
+{{--  @set('pruebas', role)  --}}
 @include('partials/navbar')
+@component('components/navbar')
+    @slot('prueba')
+      <h1>si</h1>
+    @end
+@end
 
+<h1>prueba</h1>
 <section>
 
     <div class="btl">
@@ -23,7 +30,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Nuevo Libro</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/books" method="post">
+                <form action="/books" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
 
                         <div class="mb-3">
@@ -99,13 +106,25 @@
             <div class="card-body">
                 <h5 class="card-title">{{item.name}}</h5>
                 <p class="card-text tep">{{item.description}}</p>
-                <a href="#" class="btn btn-warning">Editar</a>
-                <a href="{{spacesPath}}/{{item.book_path}}" class="btn btn-success">Descargar</a>
+
+                <div class="text-center">
+                    <a href="#" class="btn btn-warning">Editar</a>
+                    <a href="{{spacesPath}}/{{item.book_path}}" class="btn btn-success">Descargar</a>
+                    <form action="{{`/books/${item.id}?_method=DELETE`}}" method="post"> <input type="hidden"
+                            name="edit_token" value="clghdtpgu0000lwqv7lb9bf9k" /> <button class="btn btn-danger dl"
+                            type="submit">Desactivar</button></form>
+                </div>
+
             </div>
         </div>
         @endeach
     </div>
 
+    <div class="container">
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-info" type="button">Ver Libros Desactivados</button>
+        </div>
+    </div>
 
 
 </section>

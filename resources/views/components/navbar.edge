@@ -1,0 +1,61 @@
+@entryPointStyles('dashboard-styles')
+@entryPointScripts('dashboard-styles')
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">Libreria CAM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/dashboard">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/books">Libros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/authors">Autores</a>
+                </li>
+                @if($slots.prueba)
+                    @if({{{ await $slots.prueba() }}} == 3)
+                      jaja
+                    @end
+                    {{--  @if(  --}}{{{ await $slots.prueba() }}} {{--  == 3)  --}}
+                    {{--  <li class="nav-item">
+                        <a class="nav-link" href="/users">Usuarios</a>
+                    </li>  --}}
+                    {{--  @end  --}}
+                    
+                @else
+                @end
+                <li class="nav-item">
+                    <a class="nav-link" href="/editorials">Editorial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">Categoría</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tokens">Generar Token</a>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" class="nav-link dropdown-toggle dpd"
+                href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" width="10%" alt="login-icon">
+
+            <ul class="dropdown-menu dpdp">
+                <li><a class="dropdown-item" href="/profile">Datos del Usuario</a></li>
+                <li><a class="dropdown-item" href="/change-password">Cambiar contraseña</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <form action="{{ route('/logout') }}" method="post">
+                    <li><input type="submit" class="dropdown-item" value="Cerrar Sesión"></li>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
