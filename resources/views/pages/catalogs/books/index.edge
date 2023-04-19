@@ -3,25 +3,130 @@
 
 @section('body')
 
-    @include('partials/navbar')
+@include('partials/navbar')
 
-    <div style="color:white">
-        <h1>Index de Libros</h1>
-        <p>---------------------------</p>
-        <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-        <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-        <p>Lista: {{list}}</p> {{--  Lista de categorías  --}}
-        <br>
-        <p>---------------------------</p>
-        <a class="nav-link" href="books/create">Crear</a>
-        <a class="nav-link" href="books/4">Ver</a> {{--  Ejemplo de ID "1"  --}}
-        <a class="nav-link" href="books/1/edit">editar</a> {{--  Ejemplo de ID "1"  --}}
+<section>
 
-        <br>
-        <p>---------------------------</p>
-        <p>Servicio de eliminar un registro:</p>
-        <p>Método: DELETE</p>
-        <p>Ruta: books/:id</p>
+    <div class="btl">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"><img
+                width="20px"
+                src="https://cdn.icon-icons.com/icons2/1993/PNG/512/add_circle_create_expand_new_plus_icon_123218.png">
+            Agregar
+        </button>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Nuevo Libro</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/books" method="post">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre del Libro</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Nombre del Libro">
+                        </div>
+
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Ingresa la descripción" id="description"
+                                name="description"></textarea>
+                            <label for="description">Descripción</label>
+                        </div><br>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="author_id">Autores</label>
+                            <select class="form-select" id="author_id" name="author_id">
+                                <option selected>Opciones</option>
+                                @each(item in authors)
+                                <option value="{{item.id}}">{{item.name}}</option>
+                                @end
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="category_id">Categorias</label>
+                            <select class="form-select" id="category_id" name="category_id">
+                                <option selected>Opciones</option>
+                                @each(item in categories)
+                                <option value="{{item.id}}">{{item.name}}</option>
+                                @end
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="editorial_id">Editoriales</label>
+                            <select class="form-select" id="editorial_id" name="editorial_id">
+                                <option selected>Opciones</option>
+                                @each(item in editoriales)
+                                <option value="{{item.id}}">{{item.name}}</option>
+                                @end
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image_file" class="form-label">Portada</label>
+                            <input accept="image/png,image/jpeg,image/jpg,image/gif" class="form-control" type="file"
+                                id="image_file" name="image_file">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pdf_file" class="form-label">PDF</label>
+                            <input accept="application/pdf" class="form-control" type="file" id="pdf_file"
+                                name="pdf_file">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="prueba">
+        @each(item in list)
+
+        <div class="card" style="width: 18rem;">
+            <img src="{{spacesPath}}/{{item.cover_path}}" class="img-fluid rounded-start" style="height: 400px;"
+                alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text tep">{{item.description}}</p>
+                <a href="#" class="btn btn-warning">Editar</a>
+                <a href="{{spacesPath}}/{{item.book_path}}" class="btn btn-success">Descargar</a>
+            </div>
+        </div>
+        @endeach
+    </div>
+
+
+
+</section>
+
+<div style="color:white">
+    <h1>Index de Libros</h1>
+    <p>---------------------------</p>
+    <p>Es VPN: {{isPrivate}}</p> {{-- Determina si la conexión viene de VPN o Dominio --}}
+    <p>Rol: {{role}}</p> {{-- Determina el rol (1=normal, 2=supervisor, 3=admin) --}}
+    <p>Lista: {{list}}</p> {{-- Lista de categorías --}}
+    <br>
+    <p>---------------------------</p>
+    <a class="nav-link" href="books/create">Crear</a>
+    <a class="nav-link" href="books/4">Ver</a> {{-- Ejemplo de ID "1" --}}
+    <a class="nav-link" href="books/1/edit">editar</a> {{-- Ejemplo de ID "1" --}}
+
+    <br>
+    <p>---------------------------</p>
+    <p>Servicio de eliminar un registro:</p>
+    <p>Método: DELETE</p>
+    <p>Ruta: books/:id</p>
+</div>
 
 @end

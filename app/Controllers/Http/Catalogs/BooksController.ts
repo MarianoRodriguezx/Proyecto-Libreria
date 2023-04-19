@@ -12,6 +12,9 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import Application from '@ioc:Adonis/Core/Application'
 import fs from 'fs'
 import { cuid } from '@ioc:Adonis/Core/Helpers'
+import Author from 'App/Models/Catalogs/Author'
+import Category from 'App/Models/Catalogs/Category'
+import Editorial from 'App/Models/Catalogs/Editorial'
 
 const isPrivate = Env.get('IS_PRIVATE')
 const fileDriverPath = `${Env.get('S3_ENDPOINT')}${Env.get('S3_BUCKET')}`
@@ -26,11 +29,22 @@ export default class BooksController {
     .preload('editorial')
     .orderBy('id', 'desc')
 
+     /*Datos necesarios para Crear*/
+
+     const authors = await Author.all()
+     const categories = await Category.all()
+     const editoriales = await Editorial.all()
+ 
+     /*----------------------------*/
+     
     const data = {
       list: books,
       isPrivate: isPrivate,
       role: auth.user?.role,
-      spacesPath: fileDriverPath
+      spacesPath: fileDriverPath,
+      authors: authors,
+      categories: categories,
+      editoriales: editoriales
     }
     
     return view.render('pages/catalogs/books/index', data)
