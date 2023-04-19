@@ -25,6 +25,18 @@ export default class StoreBookValidator {
       rules.required(),
       rules.exists({ table: 'editorials', column: 'id' })
     ]),
+    image_file: schema.file({
+      size: '10mb',
+      extnames: ['jpg', 'jpeg' ,'gif', 'png'],
+    }, [
+        rules.required()
+    ]),
+    pdf_file: schema.file({
+      size: '50mb',
+      extnames: ['pdf'],
+    }, [
+        rules.required()
+    ])
   })
 
   public messages: CustomMessages = {
