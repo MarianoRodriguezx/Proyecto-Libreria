@@ -96,25 +96,26 @@ export default class BooksController {
   public async store({request, session, response, auth}: HttpContextContract) {
     try {
       // Validate
-      await request.validate(StoreBookValidator)
+      console.log(request.input("description"))
+      const bookValidation = await request.validate(StoreBookValidator)
 
-      const imageDataSchema = schema.create({
+      /* const imageDataSchema = schema.create({
         image_file: schema.file({
             size: '10mb',
             extnames: ['jpg', 'jpeg' ,'gif', 'png'],
         })
       })
-      const imageData = await request.validate({ schema: imageDataSchema })
-      const myImage = imageData.image_file;
+      const imageData = await request.validate({ schema: imageDataSchema }) */
+      const myImage = bookValidation.image_file;
 
-      const pdfDataSchema = schema.create({
+      /* const pdfDataSchema = schema.create({
         pdf_file: schema.file({
             size: '50mb',
             extnames: ['pdf'],
         })
       })
-      const pdfData = await request.validate({ schema: pdfDataSchema })
-      const myPDF = pdfData.pdf_file;
+      const pdfData = await request.validate({ schema: pdfDataSchema }) */
+      const myPDF = bookValidation.pdf_file;
       
       //get Info
       const bookData = request.only(Book.store)
