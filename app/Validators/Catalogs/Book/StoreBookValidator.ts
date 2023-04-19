@@ -53,5 +53,11 @@ export default class StoreBookValidator {
     'editorial_id.required': 'El campo editorial es obligatorio',
     'editorial_id.number': 'El editorial debe ser de tipo número',
     'editorial_id.exists': 'El editorial ingresado no existe',
+    'image_file.required': 'La imagen es obligatorio',
+    'image_file.size': 'La imagen no debe tener un tamaño mayor a 10mb',
+    'image_file.extnames': 'La imagen no es un formato de imagen válido',
+    'pdf_file.required': 'El pdf es obligatorio',
+    'pdf_file.size': 'El pdf no debe tener un tamaño mayor a 50mb',
+    'pdf_file.extnames': 'El pdf no es un formato de imagen válido',
   }
 }
