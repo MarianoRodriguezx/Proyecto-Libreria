@@ -1,7 +1,9 @@
 @entryPointStyles('dashboard-styles')
 @entryPointScripts('dashboard-styles')
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary"  {{ $props.serializeExcept(['isPrivate','role']) }}>
+    <p>Es privado: {{ isPrivate }}</p>
+    <p>Rol: {{ role }}</p>
     <div class="container-fluid">
         <a class="navbar-brand" href="/dashboard">Libreria CAM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -19,35 +21,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/authors">Autores</a>
                 </li>
-                @if($slots.prueba)
-                    @if( await $slots.prueba() === 3)
-
-                        {{{ await $slots.prueba() }}}
-                        jjjjj
-
-                    @else
-                        mcdkcmdsk
-                    @end
-                @end
-                {{-- @if( --}}{{-- == 3) --}}
-                {{-- @end --}}
-                {{-- @if( --}}{{-- {{{ await $slots.prueba() }}} --}} {{-- == 3) --}}
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="/users">Usuarios</a>
-                </li> --}}
-                {{-- @end --}}
-
-                @else
-                @end
+                @if(role === 3 && isPrivate)
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">Usuarios</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="/editorials">Editorial</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/categories">Categoría</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/tokens">Generar Token</a>
-                </li>
+                @if((role === 3 || role === 2) && isPrivate)
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tokens">Generar Token</a>
+                    </li>
+                @endif
             </ul>
         </div>
         <div class="dropdown">

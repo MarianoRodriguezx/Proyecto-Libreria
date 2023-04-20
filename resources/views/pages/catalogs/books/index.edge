@@ -3,13 +3,11 @@
 
 @section('body')
 
-@include('partials/navbar')
-{{--  @component('components/navbar')
-    @slot('prueba')
-      3
-    @end
-  
-@end  --}}
+{{--  @include('partials/navbar')  --}}
+@!component('components/navbar', {
+    isPrivate: isPrivate,
+    role: role
+  })  
 
 <section>
 

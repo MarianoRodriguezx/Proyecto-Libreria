@@ -98,6 +98,7 @@ export default class AuthorsController {
       // Validate
       await request.validate(UpdateAuthorValidator)
       const editToken = request.input("edit_token")
+      console.log(editToken)
       
       // Update
       if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
