@@ -11,7 +11,7 @@ export default class StoreBookValidator {
     ]),
     description: schema.string({trim: true}, [
       rules.required(),
-      rules.maxLength(255)
+      rules.maxLength(1000)
     ]),
     author_id: schema.number([
       rules.required(),

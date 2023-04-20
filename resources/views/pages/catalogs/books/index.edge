@@ -40,7 +40,7 @@
 
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="Ingresa la descripción" id="description"
-                                name="description"></textarea>
+                                name="description" maxlength="1000"></textarea>
                             <label for="description">Descripción</label>
                         </div><br>
 
@@ -101,7 +101,7 @@
 
         <div class="card" style="width: 18rem;">
             <img src="{{spacesPath}}/{{item.cover_path}}" class="img-fluid rounded-start" style="height: 400px;"
-                alt="...">
+                alt="imagen no encontrada" onerror="this.onerror=null; this.src='{{ asset('assets/images/default.png') }}'">
             <div class="card-body">
                 <h5 class="card-title">{{item.name}}</h5>
                 <p class="card-text tep">{{item.description}}</p>
