@@ -75,17 +75,15 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Token Requerido para dicha
-                                        accion</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Insertar Token</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <form action="{{`/categories/${item.id}?_method=DELETE`}}" method="POST">
                                     <div class="modal-body">
 
-                                        {{item.id}}
                                         <div class="mb-3">
-                                            <label for="edit_token" class="form-label">Token del Administrador</label>
+                                            <label for="edit_token" class="form-label">Token para eliminar</label>
                                             <input type="text" class="form-control" id="edit_token" name="edit_token"
                                                 placeholder="Token del Administrador">
                                         </div>
@@ -133,12 +131,6 @@
             @end
         </tbody>
     </table>
-
-
-    <p>---------------------------</p>
-    <p>Es VPN: {{isPrivate}}</p> {{-- Determina si la conexión viene de VPN o Dominio --}}
-    <p>Rol: {{role}}</p> {{-- Determina el rol (1=normal, 2=supervisor, 3=admin) --}}
-    <p>---------------------------</p>
 </div>
 
 @end

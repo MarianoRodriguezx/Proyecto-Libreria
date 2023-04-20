@@ -72,27 +72,6 @@
             </table>
         </div>
 
-
-
-        @each(item in list)
-        <p>----------------------</p>
-        <p>Token: {{item.token}}</p>
-        <p>Tabla: {{item.linked_table}}</p>
-        <p>Tipo: {{+item.type === 1 ? 'Editar' : 'Eliminar'}}</p>
-        <p>Status: {{item.status}}</p>
-        <p>Token usado por: {{item.used_email}}</p>
-        <p>Token generado por: {{item.generatedBy.username}}</p>
-        @end
-        <br><br>
-        <p>***************************************</p>
-        <h1>Index de tokens</h1>
-        <p>---------------------------</p>
-        <p>Es VPN: {{isPrivate}}</p> {{-- Determina si la conexión viene de VPN o Dominio --}}
-        <p>Rol: {{role}}</p> {{-- Determina el rol (1=normal, 2=supervisor, 3=admin) --}}
-        <p>Lista: {{list}}</p> {{-- Lista de categorías --}}
-        <br>
-        <p>---------------------------</p>
-
     </div>
 
     @end

@@ -91,7 +91,6 @@
                                 <form action="{{`/authors/${item.id}?_method=DELETE`}}" method="POST">
                                     <div class="modal-body">
 
-                                        {{item.id}}
                                         <div class="mb-3">
                                             <label for="edit_token" class="form-label">Token del Administrador</label>
                                             <input type="text" class="form-control" id="edit_token" name="edit_token"
@@ -145,13 +144,5 @@
             @end
         </tbody>
     </table>
-
-    
-    <div style="color:white">
-        <p>Es VPN: {{isPrivate}}</p> {{-- Determina si la conexión viene de VPN o Dominio --}}
-        <p>Rol: {{role}}</p> {{-- Determina el rol (1=normal, 2=supervisor, 3=admin) --}}
-        <p>Lista: {{list}}</p> {{-- Lista de categorías --}}
-        <br>
-    </div>
 
     @end
