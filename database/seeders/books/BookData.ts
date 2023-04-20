@@ -13,8 +13,9 @@ export interface IEditorial {
     editorial_id: number;
 }
 
-const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
-const pdfBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/pdf/' :  'oficial/pdf/';
+const nodeEnv:string = Env.get('NODE_ENV')
+const imageBasePath = nodeEnv === 'development' ? 'testing/images/' :  'oficial/images/';
+const pdfBasePath = nodeEnv === 'development' ? 'testing/pdf/' :  'oficial/pdf/';
 
 export const books: IEditorial[] = [
     {
@@ -72,4 +73,8 @@ export const books: IEditorial[] = [
         category_id: 5,
         editorial_id: 5,
     }
+]
+
+export const booksProd: IEditorial[] = [
+    
 ]

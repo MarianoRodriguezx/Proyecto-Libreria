@@ -1,17 +1,33 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import { books } from './BookData'
+import { books, booksProd } from './BookData'
 import Book from 'App/Models/Catalogs/Book'
+
+import Env from '@ioc:Adonis/Core/Env'
+const nodeEnv:string = Env.get('NODE_ENV')
+
 
 export default class extends BaseSeeder {
   public async run () {
-    for (const book of books) {
-      await Book.create(book)
+    if (nodeEnv === 'development') {
+      for (const book of books) {
+        await Book.create(book)
+      }
+    } else {
+      for (const book of booksProd) {
+        await Book.create(book)
+      }
     }
   }
 
   public static async runSeed () {
-    for (const book of books) {
-      await Book.create(book)
+    if (nodeEnv === 'development') {
+      for (const book of books) {
+        await Book.create(book)
+      }
+    } else {
+      for (const book of booksProd) {
+        await Book.create(book)
+      }
     }
   }
 }
