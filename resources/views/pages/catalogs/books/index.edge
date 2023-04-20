@@ -117,9 +117,15 @@
     </div>
 
     <div class="container">
-        <div class="d-grid gap-2">
-            <button class="btn btn-outline-info" type="button">Ver Libros Desactivados</button>
-        </div>
+        @if(showAll)
+            <div class="d-grid gap-2">
+                <a class="btn btn-outline-info" href="/books" type="button">Ver solo libros activos</a>
+            </div>
+        @else
+            <div class="d-grid gap-2">
+                <a class="btn btn-outline-info" href="/all/books" type="button">Ver Libros Desactivados</a>
+            </div>
+        @endif
     </div>
 
     <br>

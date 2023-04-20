@@ -53,7 +53,8 @@ export default class BooksController {
       spacesPath: fileDriverPath,
       authors: authors,
       categories: categories,
-      editoriales: editoriales
+      editoriales: editoriales,
+      showAll: false
     }
     
     return view.render('pages/catalogs/books/index', data)
@@ -122,18 +123,42 @@ export default class BooksController {
 
   // API
 
-  public async getActiveBooks({ auth }: HttpContextContract) {
+  public async getActiveBooks({ auth, view }: HttpContextContract) {
     const books = await Book.query()
+    .preload('postedBy')
+    .preload('author')
+    .preload('category')
+    .preload('editorial')
+    .orderBy('id', 'desc')
+
+     /*Datos necesarios para Crear*/
+
+     const authors = await Author.query()
     .where('status', true)
     .orderBy('id', 'desc')
 
+    const categories = await Category.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
+    
+    const editoriales = await Editorial.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
+ 
+     /*----------------------------*/
+     
     const data = {
       list: books,
       isPrivate: isPrivate,
-      role: auth.user?.role
+      role: auth.user?.role,
+      spacesPath: fileDriverPath,
+      authors: authors,
+      categories: categories,
+      editoriales: editoriales,
+      showAll: true
     }
     
-    return data
+    return view.render('pages/catalogs/books/index', data)
   }
 
   public async store({request, session, response, auth}: HttpContextContract) {
