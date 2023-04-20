@@ -10,11 +10,11 @@
   "assets/email.css": "http://localhost:8080/assets/email.css",
   "assets/email.js": "http://localhost:8080/assets/email.js",
   "assets/images/default.png": "http://localhost:8080/assets/images/default.8b23c3e5.png",
+  "assets/images/notdounf.png": "http://localhost:8080/assets/images/notdounf.8b23c3e5.png",
+  "assets/images/default2.png": "http://localhost:8080/assets/images/default2.1ea209ed.png",
   "assets/images/bookicon.png": "http://localhost:8080/assets/images/bookicon.17c787ef.png",
-  "assets/images/elpsicoanalista.jpg.opdownload": "http://localhost:8080/assets/images/elpsicoanalista.jpg.c0c223bb.opdownload",
+  "assets/images/bookicon2.png": "http://localhost:8080/assets/images/bookicon2.17c787ef.png",
+  "assets/images/crepusculo.jpg": "http://localhost:8080/assets/images/crepusculo.f7e6abaa.jpg",
   "assets/images/elpsicoanalista.jpg": "http://localhost:8080/assets/images/elpsicoanalista.c0c223bb.jpg",
-  "assets/images/harrypotter.jpg.opdownload": "http://localhost:8080/assets/images/harrypotter.jpg.c4784ffa.opdownload",
-  "assets/images/harrypotter.jpg": "http://localhost:8080/assets/images/harrypotter.c4784ffa.jpg",
-  "assets/images/crepusculo.jpg.opdownload": "http://localhost:8080/assets/images/crepusculo.jpg.f7e6abaa.opdownload",
-  "assets/images/crepusculo.jpg": "http://localhost:8080/assets/images/crepusculo.f7e6abaa.jpg"
+  "assets/images/harrypotter.jpg": "http://localhost:8080/assets/images/harrypotter.c4784ffa.jpg"
 }
