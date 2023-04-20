@@ -96,9 +96,9 @@ export default class AuthorsController {
   public async update({request, session, response, params, auth}: HttpContextContract) {
     try {
       // Validate
-      await request.validate(UpdateAuthorValidator)
       const editToken = request.input("edit_token")
       console.log(editToken)
+      await request.validate(UpdateAuthorValidator)
       
       // Update
       if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
