@@ -3,6 +3,7 @@ import User from 'App/Models/User'
 import LoginValidator from 'App/Validators/Auth/LoginValidator'
 import Env from '@ioc:Adonis/Core/Env'
 import Route from '@ioc:Adonis/Core/Route'
+const isPrivate = Env.get('IS_PRIVATE')
 
 export default class AuthController {
     public async register({ }: HttpContextContract) {
@@ -82,14 +83,18 @@ export default class AuthController {
 
     public async profile({ auth, view }: HttpContextContract) {
         const data = {
-            user: auth.user
+            user: auth.user,
+            isPrivate: isPrivate,
+            role: auth.user?.role
         }
         return view.render('pages/auth/profile', data)
     }
 
     public async changePassword({ auth, view }: HttpContextContract) {
         const data = {
-            user: auth.user
+            user: auth.user,
+            isPrivate: isPrivate,
+            role: auth.user?.role
         }
         return view.render('pages/auth/change_password', data)
     }
