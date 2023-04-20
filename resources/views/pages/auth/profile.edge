@@ -5,9 +5,28 @@
 
 @include('partials/navbar')
 
-<div style="color:white">
-    <h1>Mi perfil</h1>
-    <p> Te llamas {{user.username}} y tu correo es {{user.email}}, de nada.</p>
+<div class="container" >
+<br>
+    <div class="row bg-body-tertiary" style="text-align: center; border-radius:200px" >
+        <div class="col-sm-6" style="color:white; ">
+            <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" width="65%" >
+        </div>
+        <div class="col-sm-6" style="color:black;text-align:left">
+            <br> <br> 
+            <h2 class="titles" style="margin-bottom:2%; color:black">Mi perfil</h2>
+            <h3> {{user.username}} </h3>
+            <h5> 
+                @if(user.role == 1)
+                    
+                @elseif(user.role == 2)
+                    Supervisor
+                @else
+                    Administrador
+                @endif
+            </h5>
+            <h5>{{user.email}}</h5>
+        </div>
+    </div>
 </div>
 
 @end

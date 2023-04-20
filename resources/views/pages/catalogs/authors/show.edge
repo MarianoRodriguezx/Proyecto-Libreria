@@ -8,6 +8,15 @@
 <div class="container div-code">
     <h1 class="titles text-center">Editar autor</h1><br>
     <form action="{{`/authors/${item.id}?_method=PUT`}}" method="POST">
+        @if(role != 2)
+            <div class="mb-3">
+                <label for="name" class="form-label p-code">Token de Supervisor</label>
+                <input type="text" name="edit_token" class="form-control input-code" 
+                    id="edit_token" placeholder="Se necesita el token de un supervisor para poder realizar la acción"/>
+            </div>
+        @else
+            <input type="hidden" name="edit_token" value="clgoc0u4w0000dcuk2caqgsz8" id="edit_token"/>
+        @endif
         <input type="hidden" name="edit_token" value="clgllg83z0005wwukgamfgubv" id="edit_token"/>
         <div class="mb-3">
             <label for="name" class="form-label p-code">Nombre Autor</label>
