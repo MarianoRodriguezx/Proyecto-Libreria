@@ -58,9 +58,9 @@
                         <td>{{item.linked_table}}</td>
                         <td>
                             @if(item.status)
-                            <img src="https://cdn-icons-png.flaticon.com/512/4676/4676041.png" width="35px">
+                            <img src="{{ asset('assets/images/isactive.png') }}" width="35px">
                             @else
-                            <img src="https://cdn-icons-png.flaticon.com/512/5978/5978441.png" width="35px">
+                            <img src="{{ asset('assets/images/isinactive.png') }}" width="35px">
                             @endif
                         </td>
                         <td>{{+item.type === 1 ? 'Editar' : 'Eliminar'}}</td>
