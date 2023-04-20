@@ -18,6 +18,9 @@
 |
 */
 
+import Env from '@ioc:Adonis/Core/Env'
+
+
 import Route from '@ioc:Adonis/Core/Route'
 // Auth
 import './modules/api/auth'
@@ -35,14 +38,20 @@ import './modules/view/catalogs/author'
 import './modules/view/catalogs/editorial'
 import './modules/view/catalogs/user'
 
+const isPrivate = Env.get('IS_PRIVATE')
+
 
 /* Route.get('/', async ({ view }) => {
   return view.render('welcome')
   return view.render('pages/page_login')
 }) */
 
-Route.get('/dashboard', async ({ view }) => {
-  return view.render('pages/dashboard')  
+Route.get('/dashboard', async ({ view, auth }) => {
+  const data = {
+    isPrivate: isPrivate,
+    role: auth.user?.role
+  }
+  return view.render('pages/dashboard', data)  
 }).middleware(['auth', 'verifyUser'])
 
 Route.on('/').redirect('/login')

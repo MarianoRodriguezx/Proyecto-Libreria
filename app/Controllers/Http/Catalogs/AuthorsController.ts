@@ -108,8 +108,9 @@ export default class AuthorsController {
         await author.save()
 
         // Response
-        session.flash('form', 'Autor editada correctamente')
-        return response.redirect().back()
+        /* session.flash('form', 'Autor editada correctamente')
+        return response.redirect().back() */
+        return response.redirect('authors')
       } else {
         session.flash('form', 'Token inválido')
         return response.redirect().back()
