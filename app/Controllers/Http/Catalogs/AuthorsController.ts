@@ -96,9 +96,8 @@ export default class AuthorsController {
   public async update({request, session, response, params, auth}: HttpContextContract) {
     try {
       // Validate
-      const editToken = request.input("edit_token")
-      console.log(editToken)
       await request.validate(UpdateAuthorValidator)
+      const editToken = request.input("edit_token")
       
       // Update
       if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
@@ -110,7 +109,7 @@ export default class AuthorsController {
         // Response
         /* session.flash('form', 'Autor editada correctamente')
         return response.redirect().back() */
-        return response.redirect('authors')
+        return response.redirect('/authors')
       } else {
         session.flash('form', 'Token inválido')
         return response.redirect().back()
