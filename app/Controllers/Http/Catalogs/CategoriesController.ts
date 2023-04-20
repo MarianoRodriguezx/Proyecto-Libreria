@@ -107,8 +107,9 @@ export default class CategoriesController {
         await category.save()
 
         // Response
-        session.flash('form', 'Categoría editada correctamente')
-        return response.redirect().back()
+        /* session.flash('form', 'Categoría editada correctamente')
+        return response.redirect().back() */
+        return response.redirect('/categories')
       } else {
         session.flash('form', 'Token inválido')
         return response.redirect().back()

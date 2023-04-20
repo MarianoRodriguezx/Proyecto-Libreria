@@ -106,8 +106,9 @@ export default class UsersController {
         await user.save()
 
         // Response
-        session.flash('form', 'User editada correctamente')
-        return response.redirect().back()
+        /* session.flash('form', 'User editada correctamente')
+        return response.redirect().back() */
+        return response.redirect('/users')
       } else {
         session.flash('form', 'Token inválido')
         return response.redirect().back()

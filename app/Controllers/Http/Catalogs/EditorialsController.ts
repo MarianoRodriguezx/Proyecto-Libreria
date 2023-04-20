@@ -107,8 +107,9 @@ export default class EditorialsController {
         await editorial.save()
 
         // Response
-        session.flash('form', 'Editorial editada correctamente')
-        return response.redirect().back()
+        /* session.flash('form', 'Editorial editada correctamente')
+        return response.redirect().back() */
+        return response.redirect('/editorials')
       } else {
         session.flash('form', 'Token inválido')
         return response.redirect().back()

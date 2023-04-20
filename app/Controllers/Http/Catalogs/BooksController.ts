@@ -190,8 +190,9 @@ export default class BooksController {
         await book.save()
 
         // Response
-        session.flash('form', 'Libro editado correctamente')
-        return response.redirect().back()
+        /* session.flash('form', 'Libro editado correctamente')
+        return response.redirect().back() */
+        return response.redirect('/books')
       } else {
         session.flash('form', 'Token inválido')
         return response.redirect().back()
