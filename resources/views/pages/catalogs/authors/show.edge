@@ -10,6 +10,13 @@
 
 <div class="container div-code">
     <h1 class="titles text-center">Editar autor</h1><br>
+    @if (flashMessages.has('form'))
+        <br>
+        <div class="alert alert-danger alert-dismissible fade show text-center alr" role="alert">
+            {{ flashMessages.get('form') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <form action="{{`/authors/${item.id}?_method=PUT`}}" method="POST">
         @if(role != 2)
             <div class="mb-3">
