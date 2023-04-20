@@ -104,7 +104,7 @@
                 <p class="card-text tep">{{item.description}}</p>
 
                 <div class="text-center">
-                    <a href="#" class="btn btn-warning">Editar</a>
+                    <a href="{{`/books/${item.id}`}}" class="btn btn-warning">Editar</a>
                     <a href="{{spacesPath}}/{{item.book_path}}" class="btn btn-success">Descargar</a>
                     <form action="{{`/books/${item.id}?_method=DELETE`}}" method="post"> <input type="hidden"
                             name="edit_token" value="clghdtpgu0000lwqv7lb9bf9k" /> <button class="btn btn-danger dl"

@@ -1,5 +1,5 @@
 @layout('layouts/main')
-@set('title', 'Editar categoría')
+@set('title', 'Editar libro')
 
 @section('body')
 
@@ -8,32 +8,132 @@
     role: role
   })  
 
-<div style="color:white">
-    <h1>Mostrar Libro</h1>
-    <p>Es VPN: {{isPrivate}}</p> {{--  Determina si la conexión viene de VPN o Dominio  --}}
-    <p>Rol: {{role}}</p> {{--  Determina el rol (1=normal, 2=supervisor, 3=admin)  --}}
-    <p>Item: {{item}}</p> {{--  Categoría  --}}
-    <ul>
-        <p>Id: {{item.id}}</p> {{--  Las ID no se deben mostrar  --}}
-        <p>Nombre: {{item.name}}</p>
-        <p>Descripción: {{item.description}}</p>
-        <p>PDF: {{item.book_path}}</p>
-        <p>Img: {{item.cover_path}}</p>
-        <p>Autor id: {{item.author_id}}</p>
-        <p>Category id: {{item.category_id}}</p>
-        <p>Editorial id: {{item.editorial_id}}</p>
-        <p>Activo: {{item.status}}</p>
-        <p>Publicado por: {{item.postedBy.username}}</p>
-        <p>Autor: {{item.author.name}}</p>
-        <p>Categoría: {{item.category.name}}</p>
-        <p>Editorial: {{item.editorial.name}}</p>
-        <br>
-        <p>Spaces Path: {{spacesPath}}</p>
-    </ul>
-    <img src="{{spacesPath}}/{{item.cover_path}}" alt="no jala">
+<section>
+    <br>
+    <div class="center-content">
 
-    <a href="{{spacesPath}}/{{item.book_path}}"> Descargar libro</a>
+        @if (flashMessages.has('form'))
+        <br>
+        <div class="alert alert-danger alert-dismissible fade show text-center alr" role="alert">
+            {{ flashMessages.get('form') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if (flashMessages.has('success'))
+        <br>
+        <div class="alert alert-danger alert-dismissible fade show text-center alr" role="alert" style="background-color: greenyellow; color:black; border-color: black;">
+            {{ flashMessages.get('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        <div class="edit-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar Libro</h1>
+                </div>
+                <form action="/books/{{item.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+
+                        @if(role != 2)
+                            <div class="mb-3">
+                                <label for="name" class="form-label p-code">Token para Editar</label>
+                                <input type="text" name="edit_token" class="form-control input-code" 
+                                    id="edit_token" placeholder="Se necesita el token de un supervisor para poder realizar la acción"/>
+                            </div>
+                        @else
+                            <input type="hidden" name="edit_token" value="." id="edit_token"/>
+                        @endif
     
-</div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre del Libro</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Nombre del Libro" value="{{item.name}}">
+                        </div>
+    
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Ingresa la descripción" id="description"
+                                name="description" maxlength="1000" style="height: 100px;">{{item.description}}</textarea>
+                            <label for="description">Descripción</label>
+                        </div><br>
+    
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="author_id">Autores</label>
+                            <select class="form-select" id="author_id" name="author_id">
+                                @each(author in authors)
+                                <option value="{{author.id}}" {{author.id == item.author.id ? 'selected' : ''}}>{{author.name}}</option>
+                                @end
+                            </select>
+                        </div>
+    
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="category_id">Categorias</label>
+                            <select class="form-select" id="category_id" name="category_id">
+                                @each(category in categories)
+                                <option value="{{category.id}}" {{category.id == item.category.id ? 'selected' : ''}}>{{category.name}}</option>
+                                @end
+                            </select>
+                        </div>
+    
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="editorial_id">Editoriales</label>
+                            <select class="form-select" id="editorial_id" name="editorial_id">
+                                @each(editorial in editoriales)
+                                <option value="{{editorial.id}}" {{editorial.id == item.editorial.id ? 'selected' : ''}}>{{editorial.name}}</option>
+                                @end
+                            </select>
+                        </div>
+    
+                    </div>
+                    <div class="align-buttons">
+                        <a type="button" class="btn btn-secondary" href="/books">Cancelar</a>
+                        <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <br><br><br>
+
+        <div class="edit-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar Portada</h1>
+                </div>
+                <form action="/books/update/cover/{{item.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+
+                        <div class="center-content">
+                            <img src="{{spacesPath}}/{{item.cover_path}}" class="img-fluid rounded-start" style="height: 400px;"
+                            alt="imagen no encontrada" onerror="this.onerror=null; this.src='{{ asset('assets/images/default.png') }}'">
+                        </div>
+
+                        @if(role != 2)
+                            <div class="mb-3">
+                                <label for="name" class="form-label p-code">Token para Editar</label>
+                                <input type="text" name="edit_token" class="form-control input-code" 
+                                    id="edit_token" placeholder="Se necesita el token de un supervisor para poder realizar la acción"/>
+                            </div>
+                        @else
+                            <input type="hidden" name="edit_token" value="." id="edit_token"/>
+                        @endif
+    
+                        <div class="mb-3">
+                            <label for="image_file" class="form-label">Portada</label>
+                            <input accept="image/png,image/jpeg,image/jpg,image/gif" class="form-control" type="file"
+                                id="image_file" name="image_file">
+                        </div>
+    
+                    </div>
+                    <div class="align-buttons">
+                        <a type="button" class="btn btn-secondary" href="/books">Cancelar</a>
+                        <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
 @end
