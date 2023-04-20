@@ -10,6 +10,13 @@
 
 <div class="container div-code">
     <h1 class="titles text-center">Editar usuario</h1><br>
+    @if (flashMessages.has('form'))
+        <br>
+        <div class="alert alert-danger alert-dismissible fade show text-center alr" role="alert">
+            {{ flashMessages.get('form') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <form action="{{`/users/${item.id}?_method=PUT`}}" method="POST">
         <div class="mb-3">
             <label for="name" class="form-label p-code">Token de Supervisor</label>
