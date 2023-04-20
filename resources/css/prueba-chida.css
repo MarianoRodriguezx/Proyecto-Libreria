@@ -117,3 +117,28 @@
     color: #d44179;
     text-decoration: none;
 }
+
+.edit-container{
+    background-color: gainsboro;
+    width: 80vw;
+    min-height: 5vh;
+    padding: 40px;
+    border-radius: 30px;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.align-buttons {
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content:space-evenly;
+    align-items: center;
+    flex-direction: row;
+    margin: 0px 20px 0px 20px;
+}

@@ -32,9 +32,17 @@ export default class BooksController {
 
      /*Datos necesarios para Crear*/
 
-     const authors = await Author.all()
-     const categories = await Category.all()
-     const editoriales = await Editorial.all()
+     const authors = await Author.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
+
+    const categories = await Category.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
+    
+    const editoriales = await Editorial.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
  
      /*----------------------------*/
      
@@ -70,11 +78,27 @@ export default class BooksController {
     .preload('editorial')
     .firstOrFail()
 
+    const authors = await Author.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
+
+    const categories = await Category.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
+
+    const editoriales = await Editorial.query()
+    .where('status', true)
+    .orderBy('id', 'desc')
+
+
     const data = {
       item: book,
       isPrivate: isPrivate,
       role: auth.user?.role,
-      spacesPath: fileDriverPath
+      spacesPath: fileDriverPath,
+      authors: authors,
+      categories: categories,
+      editoriales: editoriales
     }
     
     return view.render('pages/catalogs/books/show', data)
@@ -184,15 +208,15 @@ export default class BooksController {
       
       // Update
       if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
-        const bookData = request.only(Book.store)
+        const bookData = request.only(Book.update)
         const book = await Book.findOrFail(params.id)
         await book.merge(bookData)
         await book.save()
 
         // Response
-        /* session.flash('form', 'Libro editado correctamente')
-        return response.redirect().back() */
-        return response.redirect('/books')
+        session.flash('success', 'Libro editado correctamente')
+        return response.redirect().back()
+        // return response.redirect('/books')
       } else {
         session.flash('form', 'Token inválido')
         return response.redirect().back()
@@ -281,11 +305,11 @@ export default class BooksController {
       book.cover_path = imagePath
       await book.save()
       // Response
-      session.flash('form', 'Libro guardado correctamente')
+      session.flash('success', 'Portada editada correctamente')
       return response.redirect().back()
     } catch (e) {
       console.log(e)
-      session.flash('form', 'Formulario inválido')
+      session.flash('form', 'Archivo inválido')
       return response.redirect().back()
     }
   }
