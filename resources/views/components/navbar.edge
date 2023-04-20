@@ -20,15 +20,23 @@
                     <a class="nav-link" href="/authors">Autores</a>
                 </li>
                 @if($slots.prueba)
-                    @if({{{ await $slots.prueba() }}} == 3)
-                      jaja
+                    @if( await $slots.prueba() === 3)
+
+                        {{{ await $slots.prueba() }}}
+                        jjjjj
+
+                    @else
+                        mcdkcmdsk
                     @end
-                    {{--  @if(  --}}{{{ await $slots.prueba() }}} {{--  == 3)  --}}
-                    {{--  <li class="nav-item">
-                        <a class="nav-link" href="/users">Usuarios</a>
-                    </li>  --}}
-                    {{--  @end  --}}
-                    
+                @end
+                {{-- @if( --}}{{-- == 3) --}}
+                {{-- @end --}}
+                {{-- @if( --}}{{-- {{{ await $slots.prueba() }}} --}} {{-- == 3) --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="/users">Usuarios</a>
+                </li> --}}
+                {{-- @end --}}
+
                 @else
                 @end
                 <li class="nav-item">
