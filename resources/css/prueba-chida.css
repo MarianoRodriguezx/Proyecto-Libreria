@@ -142,3 +142,9 @@
     flex-direction: row;
     margin: 0px 20px 0px 20px;
 }
+
+.all-books a{
+    background-color: rgb(59, 59, 109);
+    color: white;
+    border-color: black;
+}

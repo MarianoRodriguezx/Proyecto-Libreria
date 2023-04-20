@@ -8,6 +8,15 @@
     role: role
   })  
 
+<style>
+    body {
+      background-image: url('{{ asset('assets/images/woodbg.jpg') }}');
+      background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    </style>
+
 <section>
 
     @if (flashMessages.has('form'))
@@ -25,6 +34,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
+
+    <br>
+    <div class="container all-books">
+        @if(showAll)
+            <div class="d-grid gap-2">
+                <a class="btn btn-outline-info" href="/books" type="button">Ver solo libros activos</a>
+            </div>
+        @else
+            <div class="d-grid gap-2">
+                <a class="btn btn-outline-info" href="/all/books" type="button">Ver Libros Desactivados</a>
+            </div>
+        @endif
+    </div>
 
     <div class="btl">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"><img
@@ -179,18 +201,6 @@
             </div>
         </div>
         @endeach
-    </div>
-
-    <div class="container">
-        @if(showAll)
-            <div class="d-grid gap-2">
-                <a class="btn btn-outline-info" href="/books" type="button">Ver solo libros activos</a>
-            </div>
-        @else
-            <div class="d-grid gap-2">
-                <a class="btn btn-outline-info" href="/all/books" type="button">Ver Libros Desactivados</a>
-            </div>
-        @endif
     </div>
 
     <br>
