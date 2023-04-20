@@ -133,7 +133,7 @@ export default class AuthorsController {
         author.status = !author.status
         await author.save()
         // Response
-        session.flash('form', 'Autor eliminada correctamente')
+        session.flash('success', 'Autor actualizado correctamente')
         return response.redirect().back()
       } else {
         session.flash('form', 'Token inválido')

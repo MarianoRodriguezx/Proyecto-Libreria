@@ -133,7 +133,7 @@ export default class EditorialsController {
         editorial.status = !editorial.status
         await editorial.save()
         // Response
-        session.flash('form', 'Editorial eliminada correctamente')
+        session.flash('success', 'Editorial actualizada correctamente')
         return response.redirect().back()
       } else {
         session.flash('form', 'Token inválido')

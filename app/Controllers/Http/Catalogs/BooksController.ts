@@ -269,7 +269,7 @@ export default class BooksController {
         book.status = !book.status
         await book.save()
         // Response
-        session.flash('form', 'Libro eliminada correctamente')
+        session.flash('success', 'Libro actulizado correctamente')
         return response.redirect().back()
       } else {
         session.flash('form', 'Token inválido')
@@ -299,7 +299,7 @@ export default class BooksController {
     }
   }
 
-  public async updateCover({request, session, response, params}: HttpContextContract) {
+  public async updateCover({request, session, response, params, auth}: HttpContextContract) {
     try {
       // Validate
       const book = await Book.findOrFail(params.id)
@@ -311,31 +311,38 @@ export default class BooksController {
         })
       })
       const imageData = await request.validate({ schema: imageDataSchema })
-      const myImage = imageData.image_file;   
+      const myImage = imageData.image_file;
 
-      // Delete Old file
-
-      if (await Drive.exists(book.cover_path)) {
-        await Drive.delete(book.cover_path)
-      }
-
-      // Upload File
+      const editToken = request.input("edit_token")
       
-      const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
-      const imagePath = `${imageBasePath}${filename}.${myImage.extname}`
+      //
+      if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
+        // Delete Old file
+        if (await Drive.exists(book.cover_path)) {
+          await Drive.delete(book.cover_path)
+        }
 
-      await myImage.move(Application.tmpPath('uploads'), {
-        name: `${filename}.${myImage.extname}`,
-        overwrite: true
-      })
-      await Drive.putStream(imagePath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myImage.extname}`)), {})
+        // Upload File
+        
+        const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/images/' :  'oficial/images/';
+        const imagePath = `${imageBasePath}${filename}.${myImage.extname}`
 
-      // Update
-      book.cover_path = imagePath
-      await book.save()
-      // Response
-      session.flash('success', 'Portada editada correctamente')
-      return response.redirect().back()
+        await myImage.move(Application.tmpPath('uploads'), {
+          name: `${filename}.${myImage.extname}`,
+          overwrite: true
+        })
+        await Drive.putStream(imagePath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myImage.extname}`)), {})
+
+        // Update
+        book.cover_path = imagePath
+        await book.save()
+        // Response
+        session.flash('success', 'Portada editada correctamente')
+        return response.redirect().back()
+      } else {
+        session.flash('form', 'Token inválido')
+        return response.redirect().back()
+      }
     } catch (e) {
       console.log(e)
       session.flash('form', 'Archivo inválido')
@@ -343,7 +350,7 @@ export default class BooksController {
     }
   }
 
-  public async updatePdf({request, session, response, params}: HttpContextContract) {
+  public async updatePdf({request, session, response, params, auth}: HttpContextContract) {
     try {
       // Validate
       const book = await Book.findOrFail(params.id)
@@ -355,31 +362,39 @@ export default class BooksController {
         })
       })
       const pdfData = await request.validate({ schema: pdfDataSchema })
-      const myPdf = pdfData.pdf_file;   
+      const myPdf = pdfData.pdf_file;
 
-      // Delete Old file
+      const editToken = request.input("edit_token")
+      
+      if (+auth.user!.role === +User.SUPERVISOR.id || await this.useToken(GeneratedToken.EDIT.id, editToken, auth.user!.email)) {
+        // Delete Old file
 
-      if (await Drive.exists(book.book_path)) {
-        await Drive.delete(book.book_path)
+        if (await Drive.exists(book.book_path)) {
+          await Drive.delete(book.book_path)
+        }
+
+        // Upload File
+        
+        const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/pdf/' :  'oficial/pdf/';
+        const pdfPath = `${imageBasePath}${filename}.${myPdf.extname}`
+
+        await myPdf.move(Application.tmpPath('uploads'), {
+          name: `${filename}.${myPdf.extname}`,
+          overwrite: true
+        })
+        await Drive.putStream(pdfPath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myPdf.extname}`)), {})
+
+        // Update
+        book.book_path = pdfPath
+        await book.save()
+        // Response
+        session.flash('success', 'Libro guardado correctamente')
+        return response.redirect().back()
+      } else {
+        session.flash('form', 'Token inválido')
+        return response.redirect().back()
       }
 
-      // Upload File
-      
-      const imageBasePath = Env.get('NODE_ENV') === 'development' ? 'testing/pdf/' :  'oficial/pdf/';
-      const pdfPath = `${imageBasePath}${filename}.${myPdf.extname}`
-
-      await myPdf.move(Application.tmpPath('uploads'), {
-        name: `${filename}.${myPdf.extname}`,
-        overwrite: true
-      })
-      await Drive.putStream(pdfPath, fs.createReadStream(Application.tmpPath(`uploads/${filename}.${myPdf.extname}`)), {})
-
-      // Update
-      book.book_path = pdfPath
-      await book.save()
-      // Response
-      session.flash('success', 'Libro guardado correctamente')
-      return response.redirect().back()
     } catch (e) {
       console.log(e)
       session.flash('form', 'Formulario inválido')

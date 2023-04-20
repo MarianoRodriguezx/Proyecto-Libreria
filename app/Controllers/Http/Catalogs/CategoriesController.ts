@@ -133,7 +133,7 @@ export default class CategoriesController {
         category.status = !category.status
         await category.save()
         // Response
-        session.flash('form', 'Categoría eliminada correctamente')
+        session.flash('success', 'Categoría actualizada correctamente')
         return response.redirect().back()
       } else {
         session.flash('form', 'Token inválido')

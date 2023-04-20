@@ -132,7 +132,7 @@ export default class UsersController {
         user.status = !user.status
         await user.save()
         // Response
-        session.flash('form', 'User eliminada correctamente')
+        session.flash('success', 'Usuario actualizado correctamente')
         return response.redirect().back()
       } else {
         session.flash('form', 'Token inválido')
