@@ -97,7 +97,7 @@
         @each(item in list)
 
         <div class="card" style="width: 18rem;">
-            <img src="{{spacesPath}}/{{item.cover_path}}" class="img-fluid rounded-start" style="height: 400px;"
+            <img src="{{spacesPath}}/{{item.cover_path}}?{{ Date.now() }}" class="img-fluid rounded-start" style="height: 400px;"
                 alt="imagen no encontrada" onerror="this.onerror=null; this.src='{{ asset('assets/images/default.png') }}'">
             <div class="card-body">
                 <h5 class="card-title">{{item.name}}</h5>

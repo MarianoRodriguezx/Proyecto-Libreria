@@ -100,6 +100,10 @@ export default class BooksController {
       categories: categories,
       editoriales: editoriales
     }
+
+    /* response.header('Cache-Control', 'no-cache, no-store, must-revalidate')
+    response.header('Pragma', 'no-cache')
+    response.header('Expires', '0') */
     
     return view.render('pages/catalogs/books/show', data)
   }
@@ -349,7 +353,7 @@ export default class BooksController {
       book.book_path = pdfPath
       await book.save()
       // Response
-      session.flash('form', 'Libro guardado correctamente')
+      session.flash('success', 'Libro guardado correctamente')
       return response.redirect().back()
     } catch (e) {
       console.log(e)

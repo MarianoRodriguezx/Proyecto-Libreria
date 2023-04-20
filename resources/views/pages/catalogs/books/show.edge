@@ -105,7 +105,7 @@
                     <div class="modal-body">
 
                         <div class="center-content">
-                            <img src="{{spacesPath}}/{{item.cover_path}}" class="img-fluid rounded-start" style="height: 400px;"
+                            <img src="{{spacesPath}}/{{item.cover_path}}?{{ Date.now() }}" class="img-fluid rounded-start" style="height: 400px;"
                             alt="imagen no encontrada" onerror="this.onerror=null; this.src='{{ asset('assets/images/default.png') }}'">
                         </div>
 
@@ -123,6 +123,41 @@
                             <label for="image_file" class="form-label">Portada</label>
                             <input accept="image/png,image/jpeg,image/jpg,image/gif" class="form-control" type="file"
                                 id="image_file" name="image_file">
+                        </div>
+    
+                    </div>
+                    <div class="align-buttons">
+                        <a type="button" class="btn btn-secondary" href="/books">Cancelar</a>
+                        <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <br><br><br>
+
+        <div class="edit-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar Archivo (PDF)</h1>
+                </div>
+                <form action="/books/update/pdf/{{item.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+
+                        @if(role != 2)
+                            <div class="mb-3">
+                                <label for="name" class="form-label p-code">Token para Editar</label>
+                                <input type="text" name="edit_token" class="form-control input-code" 
+                                    id="edit_token" placeholder="Se necesita el token de un supervisor para poder realizar la acción"/>
+                            </div>
+                        @else
+                            <input type="hidden" name="edit_token" value="." id="edit_token"/>
+                        @endif
+    
+                        <div class="mb-3">
+                            <label for="pdf_file" class="form-label">PDF</label>
+                            <input accept="application/pdf" class="form-control" type="file" id="pdf_file"
+                                name="pdf_file">
                         </div>
     
                     </div>
